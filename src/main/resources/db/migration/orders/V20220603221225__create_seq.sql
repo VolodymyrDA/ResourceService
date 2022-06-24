@@ -1,0 +1,1 @@
+CREATE SEQUENCE if not exists order_id_seq START 69;

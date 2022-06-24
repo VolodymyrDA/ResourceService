@@ -1,0 +1,19 @@
+#IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+classes/
+logs/
+*.log
+​
+# Gradle:
+.gradle/
+build/
+test files/
+# Java 
+# Compiled class file
+*.class
+# zip file
+*.zip

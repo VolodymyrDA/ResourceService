@@ -1,0 +1,1 @@
+CREATE SEQUENCE if not exists supply_id_seq START 49;

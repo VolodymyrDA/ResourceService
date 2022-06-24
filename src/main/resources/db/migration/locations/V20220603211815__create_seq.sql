@@ -1,0 +1,1 @@
+CREATE SEQUENCE if not exists cityes_id_seq START 25;

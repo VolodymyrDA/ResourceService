@@ -1,0 +1,1 @@
+CREATE SEQUENCE if not exists subcategories_id_seq START 15;

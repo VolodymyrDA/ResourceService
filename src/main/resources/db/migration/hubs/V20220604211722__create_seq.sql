@@ -1,0 +1,1 @@
+CREATE SEQUENCE if not exists hubs_seq START 25;

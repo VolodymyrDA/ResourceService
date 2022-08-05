@@ -24,13 +24,12 @@ public class HubController {
         this.locationsRepository = locationsRepository;
     }
 
-//    @GetMapping("/hub")
-    @RequestMapping(value = {"/hub/{hubId}"}, method = RequestMethod.GET)
+    @GetMapping(path = "/hub/{hubId}")
 
-    public String viewProfile(@PathVariable(value = "hubId") int hubId,Model model) {
+    public String viewProfile(@PathVariable(value = "hubId") int hubId, Model model) {
         List<LocationEntity> locations = locationsRepository.getLocations();
         model.addAttribute("locations", locations);
-        UserEntity userEntity=usersService.findByUserID(hubId);
+        UserEntity userEntity = usersService.findByUserID(hubId);
         model.addAttribute("hub", userEntity);
         return "hub";
     }

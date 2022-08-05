@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @Controller
 public class ProfileController {
 
@@ -47,6 +46,5 @@ public class ProfileController {
             model.addAttribute("message", "Update Success");
             return "login";
         }
-
     }
 }

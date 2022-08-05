@@ -15,12 +15,10 @@ public class LocationsRepositoryImpl implements LocationsRepository {
 
 
     private final NamedParameterJdbcTemplate namedjdbcTemplate;
-    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public LocationsRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate, JdbcTemplate jdbcTemplate) {
+    public LocationsRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate) {
         this.namedjdbcTemplate = namedjdbcTemplate;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
 

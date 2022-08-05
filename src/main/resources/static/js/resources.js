@@ -32,7 +32,7 @@ function showHubResources() {
 
 function showCategories() {
     $.ajax({
-        url: 'categories/get',
+        url: 'categories/',
         dataType: 'json',
         success: function (data) {
             let categories = '';
@@ -46,7 +46,7 @@ function showCategories() {
 
 function showSubCategories(category_id) {
     $.ajax({
-        url: 'subcategories/get/' + category_id,
+        url: 'subcategories/' + category_id,
         dataType: 'json',
         success: function (data) {
             $('#subcategories').empty();
@@ -61,7 +61,7 @@ function showSubCategories(category_id) {
 
 function showResources(subcategory_id) {
     $.ajax({
-        url: 'resources/get/' + subcategory_id,
+        url: 'resources/' + subcategory_id,
         dataType: 'json',
         success: function (data) {
             $('#resources').empty();

@@ -64,15 +64,13 @@ public class UsersRepositoryImpl implements UsersRepository {
     public UserEntity findByUsername(String username) {
         String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
                 "where username= '" + username + "'";
-        UserEntity userEntity = jdbcTemplate.queryForObject(sql, new UserRowMapper());
-        return userEntity;
+        return jdbcTemplate.queryForObject(sql, new UserRowMapper());
     }
 
     @Override
     public UserEntity findByUserID(int id) {
         String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
                 "where id= '" + id + "'";
-        UserEntity userEntity = jdbcTemplate.queryForObject(sql, new UserRowMapper());
-        return userEntity;
+        return jdbcTemplate.queryForObject(sql, new UserRowMapper());
     }
 }

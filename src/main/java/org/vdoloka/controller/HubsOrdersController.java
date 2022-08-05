@@ -37,7 +37,7 @@ public class HubsOrdersController {
         return ordersService.getConfirmedOrders(page, itemPerPage);
     }
     @ResponseBody
-    @RequestMapping(value = {"/hubOrders/confirm/{orderId}"}, method = RequestMethod.PUT)
+    @PutMapping(path = "/hubOrders/confirm/{orderId}")
     public void confirmOrderById(@PathVariable(value = "orderId") @Digits(message = "invalid data", integer = 10, fraction = 0) int orderId) {
         ordersService.confirmOrder(orderId);
     }

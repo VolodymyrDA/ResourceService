@@ -18,17 +18,18 @@ public class CategoriesController {
         this.resourcesRepository = resourcesRepository;
     }
 
-    @GetMapping("categories/get")
+    @GetMapping("/categories/")
     public List<CategoryEntity> getCategories() {
         return resourcesRepository.getCategories();
     }
 
-    @RequestMapping(value = {"subcategories/get/{categorieId}"}, method = RequestMethod.GET)
-    public List<SubCategoryEntity> getSubcategories(@PathVariable(value = "categorieId") int categorieId) {
-        return resourcesRepository.getSubCategoriesByCategorie(categorieId);
+
+    @GetMapping(path = "/subcategories/{categoryId}")
+    public List<SubCategoryEntity> getSubcategories(@PathVariable(value = "categoryId") int categoryId) {
+        return resourcesRepository.getSubCategoriesByCategorie(categoryId);
     }
 
-    @RequestMapping(value = {"resources/get/{resourceId}"}, method = RequestMethod.GET)
+    @GetMapping(path = "/resources/{resourceId}")
     public List<ResourceEntity> getResources(@PathVariable(value = "resourceId") int resourceId) {
         return resourcesRepository.getResourcesBySubcategory(resourceId);
     }

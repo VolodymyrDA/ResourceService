@@ -19,12 +19,10 @@ public class ResourcesRepositoryImpl implements ResourcesRepository {
 
 
     private final NamedParameterJdbcTemplate namedjdbcTemplate;
-    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ResourcesRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate, JdbcTemplate jdbcTemplate) {
+    public ResourcesRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate) {
         this.namedjdbcTemplate = namedjdbcTemplate;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
 
@@ -45,5 +43,4 @@ public class ResourcesRepositoryImpl implements ResourcesRepository {
         String sql = "SELECT id,name  FROM resources where subcategorie_id = " + subCategoryId;
         return namedjdbcTemplate.query(sql, new ResourceRowMapper());
     }
-
 }

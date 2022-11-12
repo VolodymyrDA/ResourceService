@@ -1,16 +1,12 @@
 package org.vdoloka.repository;
 
-import org.vdoloka.entity.CategoryEntity;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.vdoloka.entity.ResourceEntity;
-import org.vdoloka.entity.SubCategoryEntity;
 
-import java.util.List;
-
-public interface ResourcesRepository {
-
-    List<CategoryEntity> getCategories();
-
-    List<SubCategoryEntity> getSubCategoriesByCategorie(int categorieId);
-
-    List<ResourceEntity> getResourcesBySubcategory(int subCategoryId);
+public interface ResourcesRepository extends CrudRepository<ResourceEntity, Long> {
+    @Query(value = "SELECT id, name  FROM resources " +
+            "where subcategorie_id = :subCategoryId", nativeQuery = true)
+    Iterable<ResourceEntity> findAllBySubcategoryId(@Param("subCategoryId") long subCategoryId);
 }

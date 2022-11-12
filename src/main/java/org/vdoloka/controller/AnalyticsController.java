@@ -34,7 +34,7 @@ public class AnalyticsController {
         return "analytics";
     }
 
-    @GetMapping("analytics/get")
+    @GetMapping("analytics/")
     @ResponseBody
     public List<HubEntity> getAnalyticsEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
@@ -46,7 +46,7 @@ public class AnalyticsController {
         return "analyticsLack";
     }
 
-    @GetMapping("analyticsLack/get")
+    @GetMapping("analytics/lack/")
     @ResponseBody
     public List<HubEntity> getAnalyticsLackEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                    @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
@@ -58,7 +58,7 @@ public class AnalyticsController {
         return "analyticsTop";
     }
 
-    @GetMapping("analyticsTop/get")
+    @GetMapping("analytics/top/")
     @ResponseBody
     public List<HubEntity> getAnalyticsTopEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                   @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {

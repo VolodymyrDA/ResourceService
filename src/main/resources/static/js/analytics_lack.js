@@ -1,7 +1,7 @@
 let page = 1;
 function showData() {
     $.ajax({
-        url: 'analyticsLack/get?page=' + page,
+        url: 'analytics/lack/?page=' + page,
         dataType: 'json',
         cache: 'false',
         success: function (data) {

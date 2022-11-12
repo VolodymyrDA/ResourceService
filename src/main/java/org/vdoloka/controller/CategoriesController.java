@@ -3,33 +3,37 @@ package org.vdoloka.controller;
 import org.vdoloka.entity.CategoryEntity;
 import org.vdoloka.entity.ResourceEntity;
 import org.vdoloka.entity.SubCategoryEntity;
-import org.vdoloka.repository.impl.ResourcesRepositoryImpl;
+import org.vdoloka.repository.CategoriesRepository;
+import org.vdoloka.repository.ResourcesRepository;
+import org.vdoloka.repository.SubCategoriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class CategoriesController {
-    private final ResourcesRepositoryImpl resourcesRepository;
+    private final ResourcesRepository resourcesRepository;
+    private final CategoriesRepository categoriesRepository;
+    private final SubCategoriesRepository subCategoriesRepository;
 
     @Autowired
-    public CategoriesController(ResourcesRepositoryImpl resourcesRepository) {
+    public CategoriesController(ResourcesRepository resourcesRepository, CategoriesRepository categoriesRepository, SubCategoriesRepository subCategoriesRepository) {
         this.resourcesRepository = resourcesRepository;
+        this.categoriesRepository = categoriesRepository;
+        this.subCategoriesRepository = subCategoriesRepository;
     }
 
-    @GetMapping("categories/get")
-    public List<CategoryEntity> getCategories() {
-        return resourcesRepository.getCategories();
+    @GetMapping("/categories/")
+    public Iterable<CategoryEntity> getCategories() {
+        return categoriesRepository.findAll();
     }
 
-    @RequestMapping(value = {"subcategories/get/{categorieId}"}, method = RequestMethod.GET)
-    public List<SubCategoryEntity> getSubcategories(@PathVariable(value = "categorieId") int categorieId) {
-        return resourcesRepository.getSubCategoriesByCategorie(categorieId);
+    @GetMapping(path = "/subcategories/{categoryId}")
+    public Iterable<SubCategoryEntity> getSubcategories(@PathVariable(value = "categoryId") int categoryId) {
+                return subCategoriesRepository.findAllByCategoryId(categoryId);
     }
 
-    @RequestMapping(value = {"resources/get/{resourceId}"}, method = RequestMethod.GET)
-    public List<ResourceEntity> getResources(@PathVariable(value = "resourceId") int resourceId) {
-        return resourcesRepository.getResourcesBySubcategory(resourceId);
+    @GetMapping(path = "/resources/{subCategoryId}")
+    public Iterable<ResourceEntity> getResources(@PathVariable(value = "subCategoryId") int subCategoryId) {
+        return resourcesRepository.findAllBySubcategoryId(subCategoryId);
     }
 }

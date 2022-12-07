@@ -25,7 +25,6 @@ public class HubController {
     }
 
     @GetMapping(path = "/hub/{hubId}")
-
     public String viewProfile(@PathVariable(value = "hubId") int hubId, Model model) {
         List<LocationEntity> locations = locationsRepository.getLocations();
         model.addAttribute("locations", locations);

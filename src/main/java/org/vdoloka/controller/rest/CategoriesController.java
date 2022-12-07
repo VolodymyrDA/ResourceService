@@ -1,4 +1,4 @@
-package org.vdoloka.controller;
+package org.vdoloka.controller.rest;
 
 import org.vdoloka.entity.CategoryEntity;
 import org.vdoloka.entity.ResourceEntity;

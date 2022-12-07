@@ -9,8 +9,6 @@ import org.vdoloka.service.impl.AnalyticsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 
 @Controller
 public class AnalyticsController {
@@ -34,35 +31,15 @@ public class AnalyticsController {
         return "analytics";
     }
 
-    @GetMapping("analytics/")
-    @ResponseBody
-    public List<HubEntity> getAnalyticsEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-                                               @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getResourcesOnHubs(page, itemPerPage);
-    }
 
     @GetMapping("analyticsLack")
     public String getAnalyticsLack() {
         return "analyticsLack";
     }
 
-    @GetMapping("analytics/lack/")
-    @ResponseBody
-    public List<HubEntity> getAnalyticsLackEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-                                                   @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getLackResources(page, itemPerPage);
-    }
-
     @GetMapping("analyticsTop")
     public String getAnalyticsTop() {
         return "analyticsTop";
-    }
-
-    @GetMapping("analytics/top/")
-    @ResponseBody
-    public List<HubEntity> getAnalyticsTopEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-                                                  @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getCountOrderingResources(page, itemPerPage);
     }
 
     @GetMapping("/export/pdf")

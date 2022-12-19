@@ -1,9 +1,13 @@
 package org.vdoloka.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "SUBCATEGORIES")
 public class SubCategoryEntity {
@@ -13,20 +17,4 @@ public class SubCategoryEntity {
     @Column(name = "subcategory_id")
     private int id;
     private String name;
-
-    public SubCategoryEntity(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public SubCategoryEntity() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

@@ -1,4 +1,4 @@
-package org.vdoloka.service;
+package org.vdoloka.service.export;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
+import lombok.RequiredArgsConstructor;
 import org.vdoloka.entity.HubEntity;
 
+import static com.lowagie.text.Paragraph.*;
+
+@RequiredArgsConstructor
 public class PDFExporter {
     private final List<HubEntity> listEntities;
-
-    public PDFExporter(List<HubEntity> listEntities) {
-        this.listEntities = listEntities;
-    }
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
@@ -47,7 +47,7 @@ public class PDFExporter {
         font.setSize(18);
         font.setColor(Color.BLUE);
         Paragraph p = new Paragraph("Total resources in stock", font);
-        p.setAlignment(Paragraph.ALIGN_CENTER);
+        p.setAlignment(ALIGN_CENTER);
         document.add(p);
         PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(100f);

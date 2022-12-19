@@ -1,5 +1,6 @@
-package org.vdoloka.service;
+package org.vdoloka.service.export;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
 import org.vdoloka.entity.HubEntity;
 
@@ -8,16 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class WordExporter {
-    private final XWPFDocument document;
+    private XWPFDocument document;
     private final List<HubEntity> listEntities;
 
-    public WordExporter(List<HubEntity> listEntities) {
-        this.listEntities = listEntities;
-        document = new XWPFDocument();
-    }
-
     public void writeContent() {
+        document = new XWPFDocument();
         XWPFParagraph paragraph = document.createParagraph();
         paragraph.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun r2 = paragraph.createRun();

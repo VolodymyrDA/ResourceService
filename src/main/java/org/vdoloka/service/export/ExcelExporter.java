@@ -1,4 +1,4 @@
-package org.vdoloka.service;
+package org.vdoloka.service.export;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,17 +15,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.vdoloka.entity.HubEntity;
 
+@RequiredArgsConstructor
 public class ExcelExporter {
-    private final XSSFWorkbook workbook;
+    private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private final List<HubEntity> listEntities;
 
-    public ExcelExporter(List<HubEntity> listEntities) {
-        this.listEntities = listEntities;
-        workbook = new XSSFWorkbook();
-    }
-
     private void writeHeaderLine() {
+        workbook = new XSSFWorkbook();
         sheet = workbook.createSheet("lack resources");
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
@@ -61,7 +59,7 @@ public class ExcelExporter {
             int columnCount = 0;
             createCell(row, columnCount++, hubEntity.getResourceId(), style);
             createCell(row, columnCount++, hubEntity.getResourceName(), style);
-            createCell(row, columnCount++, hubEntity.getQuantity(), style);
+            createCell(row, columnCount, hubEntity.getQuantity(), style);
         }
     }
 

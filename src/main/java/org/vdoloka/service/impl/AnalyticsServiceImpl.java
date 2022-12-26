@@ -1,6 +1,6 @@
 package org.vdoloka.service.impl;
 
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 import org.vdoloka.service.AnaliticsService;
@@ -22,20 +22,20 @@ public class AnalyticsServiceImpl implements AnaliticsService {
     }
 
     @Override
-    public List<HubEntity> getResourcesOnHubs(int page, int itemPerPage) {
-        List<HubEntity> resourcesOnHubs = hubsRepository.getAllResources(page, itemPerPage);
-        return resourcesOnHubs;
+    public List<HubResourcesDTO> getResourcesOnHubs(int page, int itemPerPage) {
+        List<HubResourcesDTO> resourcesOnHubResourcesDTOS = hubsRepository.getAllResources(page, itemPerPage);
+        return resourcesOnHubResourcesDTOS;
     }
 
     @Override
-    public List<HubEntity> getLackResources(int page, int itemPerPage) {
-        List<HubEntity> lackResources = ordersRepository.getLackResources(page, itemPerPage);
+    public List<HubResourcesDTO> getLackResources(int page, int itemPerPage) {
+        List<HubResourcesDTO> lackResources = ordersRepository.getLackResources(page, itemPerPage);
         return lackResources;
     }
 
     @Override
-    public List<HubEntity> getCountOrderingResources(int page, int itemPerPage) {
-        List<HubEntity> lackResources = ordersRepository.getCountOrderingResources(page, itemPerPage);
+    public List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage) {
+        List<HubResourcesDTO> lackResources = ordersRepository.getCountOrderingResources(page, itemPerPage);
         return lackResources;
     }
 }

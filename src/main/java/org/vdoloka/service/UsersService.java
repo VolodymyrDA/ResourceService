@@ -1,12 +1,12 @@
 package org.vdoloka.service;
 
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 
 public interface UsersService {
 
-    void addUser(UserEntity userEntity);
+    void addUser(User user);
 
-    void updateUser(UserEntity userEntity);
+    void updateUser(User user);
 
-    UserEntity findByUserID(int id);
+    User findByUserID(int id);
 }

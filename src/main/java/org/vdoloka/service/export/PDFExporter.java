@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 import lombok.RequiredArgsConstructor;
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 
 import static com.lowagie.text.Paragraph.*;
 
 @RequiredArgsConstructor
 public class PDFExporter {
-    private final List<HubEntity> listEntities;
+    private final List<HubResourcesDTO> listEntities;
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
@@ -32,10 +32,10 @@ public class PDFExporter {
     }
 
     private void writeTableData(PdfPTable table) {
-        for (HubEntity hubEntity : listEntities) {
-            table.addCell(String.valueOf(hubEntity.getResourceId()));
-            table.addCell(hubEntity.getResourceName());
-            table.addCell(String.valueOf(hubEntity.getQuantity()));
+        for (HubResourcesDTO hubResourcesDTO : listEntities) {
+            table.addCell(String.valueOf(hubResourcesDTO.getResourceId()));
+            table.addCell(hubResourcesDTO.getResourceName());
+            table.addCell(String.valueOf(hubResourcesDTO.getQuantity()));
         }
     }
 

@@ -2,7 +2,7 @@ package org.vdoloka.service.export;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WordExporter {
     private XWPFDocument document;
-    private final List<HubEntity> listEntities;
+    private final List<HubResourcesDTO> listEntities;
 
     public void writeContent() {
         document = new XWPFDocument();
@@ -29,11 +29,11 @@ public class WordExporter {
         rowHeader.getCell(0).setText("resource id");
         rowHeader.addNewTableCell().setText("resource name");
         rowHeader.addNewTableCell().setText("quantity");
-        for (HubEntity hubEntity : listEntities) {
+        for (HubResourcesDTO hubResourcesDTO : listEntities) {
             XWPFTableRow row = table.createRow();
-            row.getCell(0).setText(String.valueOf(hubEntity.getResourceId()));
-            row.getCell(1).setText(hubEntity.getResourceName());
-            row.getCell(2).setText(String.valueOf(hubEntity.getQuantity()));
+            row.getCell(0).setText(String.valueOf(hubResourcesDTO.getResourceId()));
+            row.getCell(1).setText(hubResourcesDTO.getResourceName());
+            row.getCell(2).setText(String.valueOf(hubResourcesDTO.getQuantity()));
         }
     }
 

@@ -6,14 +6,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "RESOURCES")
-public class ResourceEntity {
+@Table(name = "SUBCATEGORIES")
+public class SubCategory {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "subcategory_id")
     private int id;
     private String name;
+    private int categoryId;
 }

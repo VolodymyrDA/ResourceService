@@ -1,6 +1,6 @@
-package org.vdoloka.repository.mapper;
+package org.vdoloka.repository.row_mapper;
 
-import org.vdoloka.DTO.HubOrderDTO;
+import org.vdoloka.dto.HubOrderDTO;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

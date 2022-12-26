@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
-public class UserEntity {
+public class User {
     @NotEmpty(message = "Usermame may not be empty")
     private final String username;
     @Digits(message = "Phone length must have max 13 digits", integer = 0, fraction = 0)

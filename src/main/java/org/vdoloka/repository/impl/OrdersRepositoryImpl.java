@@ -1,13 +1,13 @@
 package org.vdoloka.repository.impl;
 
 import org.vdoloka.config.UserPrincipal;
-import org.vdoloka.DTO.HubOrderDTO;
-import org.vdoloka.entity.HubEntity;
-import org.vdoloka.entity.OrderEntity;
+import org.vdoloka.dto.HubOrderDTO;
+import org.vdoloka.dto.HubResourcesDTO;
+import org.vdoloka.dto.OrderDto;
 import org.vdoloka.repository.OrdersRepository;
-import org.vdoloka.repository.mapper.HubOrderRowMapper;
-import org.vdoloka.repository.mapper.HubRowMapper;
-import org.vdoloka.repository.mapper.OrderRowMapper;
+import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
+import org.vdoloka.repository.row_mapper.HubRowMapper;
+import org.vdoloka.repository.row_mapper.OrderRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -33,10 +33,10 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public void addOrder(OrderEntity orderEntity) {
+    public void addOrder(OrderDto orderDto) {
         String sql = "INSERT INTO orders (resource_id, quantity ,user_id ) VALUES (:resourceId,:quantity,:userId)";
         namedjdbcTemplate.update(sql,
-                Map.of("resourceId", orderEntity.getResourceId(), "quantity", orderEntity.getQuantity(),
+                Map.of("resourceId", orderDto.getResourceId(), "quantity", orderDto.getQuantity(),
                         "userId", getCurrentUserId()));
     }
 
@@ -49,7 +49,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<OrderEntity> getOrders(int page, int itemPerPage) {
+    public List<OrderDto> getOrders(int page, int itemPerPage) {
         String sql = "SELECT resource_id,quantity,o.id,hub_id, r.name as \"r.name\"  FROM orders o " +
                 "JOIN resources r on o.resource_id = r.id where o.user_id = " + getCurrentUserId()
                 + " ORDER BY o.hub_id DESC ,id DESC"
@@ -85,7 +85,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<HubEntity> getLackResources(int page, int itemPerPage) {
+    public List<HubResourcesDTO> getLackResources(int page, int itemPerPage) {
         String sql = "SELECT o.resource_id, r.name, (SUM(quantity) - hq.quantity_h) as \"quantity\" " +
                 "FROM orders o " +
                 "         JOIN resources r on r.id = o.resource_id " +
@@ -103,7 +103,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<HubEntity> getCountOrderingResources(int page, int itemPerPage) {
+    public List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage) {
         String sql = "SELECT resource_id,r.name ,count(resource_id)  as \"quantity\" " +
                 "FROM orders join resources r on orders.resource_id = r.id " +
                 "GROUP BY  resource_id, r.name " +

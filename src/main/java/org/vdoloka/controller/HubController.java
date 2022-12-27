@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 public class HubController {
-
     private final UsersServiceImpl usersService;
     private final LocationsRepositoryImpl locationsRepository;
 

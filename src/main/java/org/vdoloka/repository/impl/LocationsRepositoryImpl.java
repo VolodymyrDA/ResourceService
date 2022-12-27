@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public class LocationsRepositoryImpl implements LocationsRepository {
 
-
     private final NamedParameterJdbcTemplate namedjdbcTemplate;
 
     @Autowired

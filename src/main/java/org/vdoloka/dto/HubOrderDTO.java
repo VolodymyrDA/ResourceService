@@ -1,7 +1,8 @@
 package org.vdoloka.dto;
 
+import lombok.Builder;
 import lombok.Data;
-
+@Builder
 @Data
 public class HubOrderDTO {
     private final int orderId;

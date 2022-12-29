@@ -9,14 +9,14 @@ import java.sql.SQLException;
 public class HubOrderRowMapper implements RowMapper<HubOrderDTO> {
     @Override
     public HubOrderDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-        HubOrderDTO hubOrderDTO = new HubOrderDTO(rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("description"),
-                rs.getInt("phone"),
-                rs.getInt("resource_id"),
-                rs.getInt("o.quantity"),
-                rs.getInt("h.quantity")
-        );
-        return hubOrderDTO;
+        return HubOrderDTO.builder()
+                .orderId(rs.getInt("id"))
+                .locationName(rs.getString("name"))
+                .userDescription(rs.getString("description"))
+                .userPhone(rs.getInt("phone"))
+                .resourceID(rs.getInt("resource_id"))
+                .orderResourceQuantity(rs.getInt("o.quantity"))
+                .hubResourceQuantity(rs.getInt("h.quantity"))
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package org.vdoloka.dto.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.vdoloka.dto.ResourceDTO;
 import org.vdoloka.dto.UserDTO;
@@ -14,6 +15,5 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     UserDTO toDto(User user);
-
     User toEntity(UserDTO userDTO);
 }

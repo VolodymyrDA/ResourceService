@@ -3,7 +3,7 @@ package org.vdoloka.repository.impl;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.repository.HubsRepository;
-import org.vdoloka.repository.row_mapper.HubRowMapper;
+import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -51,13 +51,13 @@ public class HubsRepositoryImpl implements HubsRepository {
     public List<HubResourcesDTO> getAllResources(int page, int itemPerPage) {
         String sql = "SELECT resource_id,r.name, SUM(quantity) as \"quantity\" " + "FROM hubs h " + "JOIN resources r on r.id = h.resource_id "
                 + "GROUP BY resource_id,r.name " + "ORDER BY resource_id" + " LIMIT " + itemPerPage + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubRowMapper());
+        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 
     @Override
     public List<HubResourcesDTO> getResources(int page, int itemPerPage) {
         String sql = "SELECT resource_id,r.name, quantity " + "FROM hubs h " + "JOIN resources r on r.id = h.resource_id "
                 + "WHERE hub_id = " + getCurrentUserId() + " ORDER BY resource_id" + " LIMIT " + itemPerPage + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubRowMapper());
+        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 }

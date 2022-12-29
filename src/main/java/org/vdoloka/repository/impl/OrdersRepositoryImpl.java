@@ -6,8 +6,8 @@ import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
-import org.vdoloka.repository.row_mapper.HubRowMapper;
-import org.vdoloka.repository.row_mapper.OrderRowMapper;
+import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
+import org.vdoloka.repository.row_mapper.OrderDTORowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -55,7 +55,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 + " ORDER BY o.hub_id DESC ,id DESC"
                 + " LIMIT " + itemPerPage
                 + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new OrderRowMapper());
+        return namedjdbcTemplate.query(sql, new OrderDTORowMapper());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 "ORDER BY resource_id" +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubRowMapper());
+        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 
     @Override
@@ -110,6 +110,6 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 "ORDER BY  resource_id" +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubRowMapper());
+        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 }

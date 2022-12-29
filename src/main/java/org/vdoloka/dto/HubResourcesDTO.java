@@ -1,7 +1,9 @@
 package org.vdoloka.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class HubResourcesDTO {
     private final int resourceId;

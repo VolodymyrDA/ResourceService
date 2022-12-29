@@ -1,9 +1,11 @@
 package org.vdoloka.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
 
+@Builder
 @Data
 public class OrderDto {
     private final int resourceId;

@@ -1,10 +1,9 @@
 package org.vdoloka.repository.impl;
 
-import org.vdoloka.entity.LocationEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.vdoloka.entity.Location;
 import org.vdoloka.repository.LocationsRepository;
-import org.vdoloka.repository.mapper.LocationRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,6 @@ import java.util.List;
 
 @Repository
 public class LocationsRepositoryImpl implements LocationsRepository {
-
 
     private final NamedParameterJdbcTemplate namedjdbcTemplate;
 
@@ -23,8 +21,8 @@ public class LocationsRepositoryImpl implements LocationsRepository {
 
 
     @Override
-    public List<LocationEntity> getLocations() {
+    public List<Location> getLocations() {
         String sql = "SELECT id,name  FROM locations";
-        return namedjdbcTemplate.query(sql, new LocationRowMapper());
+        return namedjdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Location.class));
     }
 }

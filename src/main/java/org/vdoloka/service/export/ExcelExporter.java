@@ -13,13 +13,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 
 @RequiredArgsConstructor
 public class ExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private final List<HubEntity> listEntities;
+    private final List<HubResourcesDTO> listEntities;
 
     private void writeHeaderLine() {
         workbook = new XSSFWorkbook();
@@ -54,12 +54,12 @@ public class ExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
         int rowCount = 1;
-        for (HubEntity hubEntity : listEntities) {
+        for (HubResourcesDTO hubResourcesDTO : listEntities) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCell(row, columnCount++, hubEntity.getResourceId(), style);
-            createCell(row, columnCount++, hubEntity.getResourceName(), style);
-            createCell(row, columnCount, hubEntity.getQuantity(), style);
+            createCell(row, columnCount++, hubResourcesDTO.getResourceId(), style);
+            createCell(row, columnCount++, hubResourcesDTO.getResourceName(), style);
+            createCell(row, columnCount, hubResourcesDTO.getQuantity(), style);
         }
     }
 

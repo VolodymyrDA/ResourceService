@@ -25,8 +25,8 @@
     <h1 class="h3 mb-3 fw-normal">Registration</h1>
     <div class="container">
         <form action="/registration" method="post">
-            <div class="form-group"><label class="form-label"> User Name : </label>
-                <input class="form-control" type="text" name="userName">
+            <div class="form-group"><label class="form-label"> Username : </label>
+                <input class="form-control" type="text" name="username">
             </div>
             <div class="form-group"><label class="form-label"> Password: </label>
                 <input class="form-control" type="password" name="password">

@@ -12,7 +12,7 @@ Main functions:
 User role:
 - User registration
 - Create a request for specific resources by the user
-- View confirmed requests and hub information
+- View confirmed requests and hubResourcesDTO information
 - change profile information
 
 Hub role:

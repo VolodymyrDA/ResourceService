@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest()
 @AutoConfigureMockMvc
-class HubOrdersControllerTest {
+class HubResourcesDTOOrdersControllerTest {
     @Autowired
     protected WebApplicationContext context;
 

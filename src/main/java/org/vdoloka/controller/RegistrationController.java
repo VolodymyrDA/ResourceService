@@ -1,7 +1,9 @@
 package org.vdoloka.controller;
 
-import org.vdoloka.entity.LocationEntity;
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.dto.UserDTO;
+import org.vdoloka.dto.mapper.UserMapper;
+import org.vdoloka.entity.Location;
+import org.vdoloka.entity.User;
 import org.vdoloka.repository.impl.LocationsRepositoryImpl;
 import org.vdoloka.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -26,14 +29,14 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        List<LocationEntity> locations = locationsRepository.getLocations();
+        List<Location> locations = locationsRepository.getLocations();
         model.addAttribute("locations", locations);
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(UserEntity userEntity, Model model) {
-        usersService.addUser(userEntity);
+    public String registerUser(UserDTO userDTO, Model model) {
+        usersService.addUser(UserMapper.INSTANCE.toEntity(userDTO));
         model.addAttribute("message", "Registration Success");
         return "login";
     }

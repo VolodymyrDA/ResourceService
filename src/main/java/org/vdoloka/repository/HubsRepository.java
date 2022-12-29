@@ -1,6 +1,6 @@
 package org.vdoloka.repository;
 
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface HubsRepository {
 
     void reduceResourceQuantityByOrder(int orderId);
 
-    List<HubEntity> getAllResources(int page, int itemPerPage);
+    List<HubResourcesDTO> getAllResources(int page, int itemPerPage);
 
-    List<HubEntity> getResources(int page, int itemPerPage);
+    List<HubResourcesDTO> getResources(int page, int itemPerPage);
 }

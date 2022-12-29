@@ -1,6 +1,6 @@
 package org.vdoloka.service.impl;
 
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 import org.vdoloka.repository.impl.UsersRepositoryImpl;
 import org.vdoloka.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +23,24 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void addUser(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userEntity.setActive(true);
-        userEntity.setDate(LocalDateTime.now());
-        usersRepository.addUser(userEntity);
+    public void addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
+        user.setDate(LocalDateTime.now());
+        usersRepository.addUser(user);
     }
 
     @Override
-    public void updateUser(UserEntity userEntity) {
-        if (!userEntity.getPassword().isEmpty())
-            userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        usersRepository.updateUser(userEntity);
+    public void updateUser(User user) {
+        if (!user.getPassword().isEmpty())
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        usersRepository.updateUser(user);
     }
 
     @Override
-    public UserEntity findByUserID(int id) {
-        UserEntity userEntity = usersRepository.findByUserID(id);
-        userEntity.setPassword("");
-        return userEntity;
+    public User findByUserID(int id) {
+        User user = usersRepository.findByUserID(id);
+        user.setPassword("");
+        return user;
     }
 }

@@ -1,7 +1,7 @@
 package org.vdoloka.controller;
 
 import com.lowagie.text.DocumentException;
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.service.export.PDFExporter;
 import org.vdoloka.service.export.ExcelExporter;
 import org.vdoloka.service.export.WordExporter;
@@ -52,8 +52,8 @@ public class AnalyticsController {
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 1000;
-        List<HubEntity> hubEntities = analitycsService.getResourcesOnHubs(page, itemPerPage);
-        PDFExporter exporter = new PDFExporter(hubEntities);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getResourcesOnHubs(page, itemPerPage);
+        PDFExporter exporter = new PDFExporter(hubResourcesDTOEntities);
         exporter.export(response);
     }
 
@@ -67,8 +67,8 @@ public class AnalyticsController {
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 1000;
-        List<HubEntity> hubEntities = analitycsService.getLackResources(page, itemPerPage);
-        ExcelExporter excelExporter = new ExcelExporter(hubEntities);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getLackResources(page, itemPerPage);
+        ExcelExporter excelExporter = new ExcelExporter(hubResourcesDTOEntities);
         excelExporter.export(response);
     }
 
@@ -82,8 +82,8 @@ public class AnalyticsController {
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 10;
-        List<HubEntity> hubEntities = analitycsService.getCountOrderingResources(page, itemPerPage);
-        WordExporter wordExporter = new WordExporter(hubEntities);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getCountOrderingResources(page, itemPerPage);
+        WordExporter wordExporter = new WordExporter(hubResourcesDTOEntities);
         wordExporter.export(response);
     }
 }

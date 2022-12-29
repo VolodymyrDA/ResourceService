@@ -1,6 +1,6 @@
 package org.vdoloka.config;
 
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,47 +10,47 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-    private UserEntity userEntity;
+    private User user;
 
-    public UserPrincipal(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public UserPrincipal(User user) {
+        this.user = user;
     }
 
     public int getId() {
-        return userEntity.getId();
+        return user.getId();
     }
 
     public String getPhone() {
-        return userEntity.getPhone();
+        return user.getPhone();
     }
 
     public String getDescription() {
-        return userEntity.getDescription();
+        return user.getDescription();
     }
 
     public String getRole() {
-        return userEntity.getRole();
+        return user.getRole();
     }
 
     public int getLocationId() {
-        return userEntity.getLocationId();
+        return user.getLocationId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userEntity.getRole()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return userEntity.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userEntity.getUsername();
+        return user.getUsername();
     }
 
     @Override

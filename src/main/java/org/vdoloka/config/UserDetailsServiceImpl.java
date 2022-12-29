@@ -1,6 +1,6 @@
 package org.vdoloka.config;
 
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 import org.vdoloka.repository.impl.UsersRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,10 +20,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        UserEntity userEntity = userRepository.findByUsername(username);
-        if (userEntity == null) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new UserPrincipal(userEntity);
+        return new UserPrincipal(user);
     }
 }

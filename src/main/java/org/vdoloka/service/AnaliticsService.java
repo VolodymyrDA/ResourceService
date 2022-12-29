@@ -1,13 +1,13 @@
 package org.vdoloka.service;
 
-import org.vdoloka.entity.HubEntity;
+import org.vdoloka.dto.HubResourcesDTO;
 
 import java.util.List;
 
 public interface AnaliticsService {
-    List<HubEntity> getResourcesOnHubs(int Page, int itemPerPage);
+    List<HubResourcesDTO> getResourcesOnHubs(int Page, int itemPerPage);
 
-    List<HubEntity> getLackResources(int page, int itemPerPage);
+    List<HubResourcesDTO> getLackResources(int page, int itemPerPage);
 
-    List<HubEntity> getCountOrderingResources(int page, int itemPerPage);
+    List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage);
 }

@@ -1,9 +1,9 @@
 package org.vdoloka.repository.impl;
 
 import org.vdoloka.config.UserPrincipal;
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 import org.vdoloka.repository.UsersRepository;
-import org.vdoloka.repository.mapper.UserRowMapper;
+import org.vdoloka.repository.row_mapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -28,47 +28,47 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void addUser(UserEntity userEntity) {
+    public void addUser(User user) {
         final int newUserRoleId = 2;
         String sql = "INSERT INTO users (username, password ,description ,phone,date,location_id,active,role_id)" +
                 " VALUES (:userName,:password,:description,:phone,:date,:location,:active,:roleId)";
         namedjdbcTemplate.update(sql,
-                Map.of("userName", userEntity.getUsername(), "password", userEntity.getPassword(),
-                        "description", userEntity.getDescription(), "phone", userEntity.getPhone(),
-                        "date", userEntity.getDate(), "location", userEntity.getLocationId(),
-                        "active", userEntity.getActive(), "roleId", newUserRoleId)
+                Map.of("userName", user.getUsername(), "password", user.getPassword(),
+                        "description", user.getDescription(), "phone", user.getPhone(),
+                        "date", user.getDate(), "location", user.getLocationId(),
+                        "active", user.getActive(), "roleId", newUserRoleId)
         );
     }
 
-    public void updateUser(UserEntity userEntity) {
+    public void updateUser(User user) {
         String sql = "UPDATE users u SET ";
-        if (userEntity.getUsername() != null) {
-            sql = sql + "username = '" + userEntity.getUsername() + "'";
+        if (user.getUsername() != null) {
+            sql = sql + "username = '" + user.getUsername() + "'";
         }
-        if (!userEntity.getPassword().isEmpty()) {
-            sql = sql + ",password = '" + userEntity.getPassword() + "'";
+        if (!user.getPassword().isEmpty()) {
+            sql = sql + ",password = '" + user.getPassword() + "'";
         }
-        if (userEntity.getDescription() != null) {
-            sql = sql + ",description = '" + userEntity.getDescription() + "'";
+        if (user.getDescription() != null) {
+            sql = sql + ",description = '" + user.getDescription() + "'";
         }
-        if (userEntity.getPhone() != null) {
-            sql = sql + ",phone = '" + userEntity.getPhone() + "'";
+        if (user.getPhone() != null) {
+            sql = sql + ",phone = '" + user.getPhone() + "'";
         }
-        if (userEntity.getLocationId() != 0) {
-            sql = sql + ",location_id = '" + userEntity.getLocationId() + "'";
+        if (user.getLocationId() != 0) {
+            sql = sql + ",location_id = '" + user.getLocationId() + "'";
         }
         sql = sql + " WHERE u.id=" + getCurrentUserId();
         jdbcTemplate.execute(sql);
     }
 
-    public UserEntity findByUsername(String username) {
+    public User findByUsername(String username) {
         String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
                 "where username= '" + username + "'";
         return jdbcTemplate.queryForObject(sql, new UserRowMapper());
     }
 
     @Override
-    public UserEntity findByUserID(int id) {
+    public User findByUserID(int id) {
         String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
                 "where id= '" + id + "'";
         return jdbcTemplate.queryForObject(sql, new UserRowMapper());

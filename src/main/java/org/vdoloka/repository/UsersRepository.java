@@ -1,14 +1,14 @@
 package org.vdoloka.repository;
 
-import org.vdoloka.entity.UserEntity;
+import org.vdoloka.entity.User;
 
 
 public interface UsersRepository {
-    void addUser(UserEntity userEntity);
+    void addUser(User user);
 
-    void updateUser(UserEntity userEntity);
+    void updateUser(User user);
 
-    UserEntity findByUsername(String username);
+    User findByUsername(String username);
 
-    UserEntity findByUserID(int id);
+    User findByUserID(int id);
 }

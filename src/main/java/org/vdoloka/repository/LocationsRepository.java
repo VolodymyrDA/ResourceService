@@ -1,11 +1,11 @@
 package org.vdoloka.repository;
 
-import org.vdoloka.entity.LocationEntity;
+import org.vdoloka.entity.Location;
 
 import java.util.List;
 
 public interface LocationsRepository {
 
-    List<LocationEntity> getLocations();
+    List<Location> getLocations();
 
 }

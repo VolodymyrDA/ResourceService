@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class HubsRepositoryImpl implements HubsRepository {
 
-    private final NamedParameterJdbcTemplate namedjdbcTemplate;
+    private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
     public int getCurrentUserId() {
@@ -23,8 +23,8 @@ public class HubsRepositoryImpl implements HubsRepository {
     }
 
     @Autowired
-    public HubsRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedjdbcTemplate = namedjdbcTemplate;
+    public HubsRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
+        this.namedJdbcTemplate = namedJdbcTemplate;
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -51,13 +51,13 @@ public class HubsRepositoryImpl implements HubsRepository {
     public List<HubResourcesDTO> getAllResources(int page, int itemPerPage) {
         String sql = "SELECT resource_id,r.name, SUM(quantity) as \"quantity\" " + "FROM hubs h " + "JOIN resources r on r.id = h.resource_id "
                 + "GROUP BY resource_id,r.name " + "ORDER BY resource_id" + " LIMIT " + itemPerPage + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 
     @Override
     public List<HubResourcesDTO> getResources(int page, int itemPerPage) {
         String sql = "SELECT resource_id,r.name, quantity " + "FROM hubs h " + "JOIN resources r on r.id = h.resource_id "
                 + "WHERE hub_id = " + getCurrentUserId() + " ORDER BY resource_id" + " LIMIT " + itemPerPage + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 }

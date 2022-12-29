@@ -14,12 +14,12 @@ import java.util.Map;
 
 @Repository
 public class UsersRepositoryImpl implements UsersRepository {
-    private final NamedParameterJdbcTemplate namedjdbcTemplate;
+    private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UsersRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedjdbcTemplate = namedjdbcTemplate;
+    public UsersRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
+        this.namedJdbcTemplate = namedJdbcTemplate;
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -32,7 +32,7 @@ public class UsersRepositoryImpl implements UsersRepository {
         final int newUserRoleId = 2;
         String sql = "INSERT INTO users (username, password ,description ,phone,date,location_id,active,role_id)" +
                 " VALUES (:userName,:password,:description,:phone,:date,:location,:active,:roleId)";
-        namedjdbcTemplate.update(sql,
+        namedJdbcTemplate.update(sql,
                 Map.of("userName", user.getUsername(), "password", user.getPassword(),
                         "description", user.getDescription(), "phone", user.getPhone(),
                         "date", user.getDate(), "location", user.getLocationId(),

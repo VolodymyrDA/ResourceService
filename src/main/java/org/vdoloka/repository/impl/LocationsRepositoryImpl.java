@@ -12,17 +12,17 @@ import java.util.List;
 @Repository
 public class LocationsRepositoryImpl implements LocationsRepository {
 
-    private final NamedParameterJdbcTemplate namedjdbcTemplate;
+    private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Autowired
-    public LocationsRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate) {
-        this.namedjdbcTemplate = namedjdbcTemplate;
+    public LocationsRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate) {
+        this.namedJdbcTemplate = namedJdbcTemplate;
     }
 
 
     @Override
     public List<Location> getLocations() {
         String sql = "SELECT id,name  FROM locations";
-        return namedjdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Location.class));
+        return namedJdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Location.class));
     }
 }

@@ -13,17 +13,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 public class AnalyticsController {
-    private final AnalyticsServiceImpl analitycsService;
+    private final AnalyticsServiceImpl analyticsService;
+    private final DateFormat dateFormatter;
+    private final String headerKey;
 
     @Autowired
-    public AnalyticsController(AnalyticsServiceImpl analyticsService) {
-        this.analitycsService = analyticsService;
+    public AnalyticsController(AnalyticsServiceImpl analyticsService, DateFormat dateFormatter) {
+        this.analyticsService = analyticsService;
+        this.dateFormatter = dateFormatter;
+        headerKey = "Content-Disposition";
     }
 
     @GetMapping("analytics")
@@ -45,14 +48,12 @@ public class AnalyticsController {
     @GetMapping("/export/pdf")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-        String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=resourcesOnHubs_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 1000;
-        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getResourcesOnHubs(page, itemPerPage);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analyticsService.getResourcesOnHubs(page, itemPerPage);
         PDFExporter exporter = new PDFExporter(hubResourcesDTOEntities);
         exporter.export(response);
     }
@@ -60,14 +61,12 @@ public class AnalyticsController {
     @GetMapping("/export/xlsx")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-        String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=lackResources_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 1000;
-        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getLackResources(page, itemPerPage);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analyticsService.getLackResources(page, itemPerPage);
         ExcelExporter excelExporter = new ExcelExporter(hubResourcesDTOEntities);
         excelExporter.export(response);
     }
@@ -75,14 +74,12 @@ public class AnalyticsController {
     @GetMapping("/export/docx")
     public void exportToWord(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-        String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=topOrderingResources_" + currentDateTime + ".docx";
         response.setHeader(headerKey, headerValue);
         final int page = 1;
         final int itemPerPage = 10;
-        List<HubResourcesDTO> hubResourcesDTOEntities = analitycsService.getCountOrderingResources(page, itemPerPage);
+        List<HubResourcesDTO> hubResourcesDTOEntities = analyticsService.getCountOrderingResources(page, itemPerPage);
         WordExporter wordExporter = new WordExporter(hubResourcesDTOEntities);
         wordExporter.export(response);
     }

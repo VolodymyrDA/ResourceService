@@ -4,8 +4,8 @@ import org.vdoloka.dto.HubResourcesDTO;
 
 import java.util.List;
 
-public interface AnaliticsService {
-    List<HubResourcesDTO> getResourcesOnHubs(int Page, int itemPerPage);
+public interface AnalyticsService {
+    List<HubResourcesDTO> getResourcesOnHubs(int page, int itemPerPage);
 
     List<HubResourcesDTO> getLackResources(int page, int itemPerPage);
 

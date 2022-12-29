@@ -19,12 +19,12 @@ import java.util.Map;
 
 @Repository
 public class OrdersRepositoryImpl implements OrdersRepository {
-    private final NamedParameterJdbcTemplate namedjdbcTemplate;
+    private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrdersRepositoryImpl(NamedParameterJdbcTemplate namedjdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedjdbcTemplate = namedjdbcTemplate;
+    public OrdersRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
+        this.namedJdbcTemplate = namedJdbcTemplate;
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -35,7 +35,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     @Override
     public void addOrder(OrderDto orderDto) {
         String sql = "INSERT INTO orders (resource_id, quantity ,user_id ) VALUES (:resourceId,:quantity,:userId)";
-        namedjdbcTemplate.update(sql,
+        namedJdbcTemplate.update(sql,
                 Map.of("resourceId", orderDto.getResourceId(), "quantity", orderDto.getQuantity(),
                         "userId", getCurrentUserId()));
     }
@@ -51,11 +51,11 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     @Override
     public List<OrderDto> getOrders(int page, int itemPerPage) {
         String sql = "SELECT resource_id,quantity,o.id,hub_id, r.name as \"r.name\"  FROM orders o " +
-                "JOIN resources r on o.resource_id = r.id where o.user_id = " + getCurrentUserId()
-                + " ORDER BY o.hub_id DESC ,id DESC"
-                + " LIMIT " + itemPerPage
-                + " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new OrderDTORowMapper());
+                "JOIN resources r on o.resource_id = r.id where o.user_id = " + getCurrentUserId() +
+                " ORDER BY o.hub_id DESC ,id DESC" +
+                " LIMIT " + itemPerPage +
+                " OFFSET " + (page - 1) * itemPerPage;
+        return namedJdbcTemplate.query(sql, new OrderDTORowMapper());
     }
 
     @Override
@@ -68,20 +68,20 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 "WHERE h.hub_id = " + getCurrentUserId() + " and o.hub_id < 1 and o.user_id != " + getCurrentUserId() +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubOrderRowMapper());
+        return namedJdbcTemplate.query(sql, new HubOrderRowMapper());
     }
 
     @Override
     public List<HubOrderDTO> getConfirmedOrders(int page, int itemPerPage) {
         String sql = "SELECT o.id, l.name, u.description, u.phone, h.resource_id, h.quantity as \"h.quantity\", o.quantity as \"o.quantity\" " +
                 "FROM orders o " +
-                "JOIN hubs h on o.hub_id = h.hub_id and o.resource_id=h.resource_id "+
+                "JOIN hubs h on o.hub_id = h.hub_id and o.resource_id=h.resource_id " +
                 "JOIN users u on o.user_id = u.id " +
                 "JOIN locations l on u.location_id = l.id " +
                 "WHERE o.hub_id = " + getCurrentUserId() +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubOrderRowMapper());
+        return namedJdbcTemplate.query(sql, new HubOrderRowMapper());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 "ORDER BY resource_id" +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 
     @Override
@@ -110,6 +110,6 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 "ORDER BY  resource_id" +
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
-        return namedjdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 }

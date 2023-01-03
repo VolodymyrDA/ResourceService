@@ -17,32 +17,16 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class AnalyticsController {
+public class ExportController {
     private final AnalyticsServiceImpl analyticsService;
     private final DateFormat dateFormatter;
     private final String headerKey;
 
     @Autowired
-    public AnalyticsController(AnalyticsServiceImpl analyticsService, DateFormat dateFormatter) {
+    public ExportController(AnalyticsServiceImpl analyticsService, DateFormat dateFormatter) {
         this.analyticsService = analyticsService;
         this.dateFormatter = dateFormatter;
         headerKey = "Content-Disposition";
-    }
-
-    @GetMapping("analytics")
-    public String getAnalytics() {
-        return "analytics";
-    }
-
-
-    @GetMapping("analyticsLack")
-    public String getAnalyticsLack() {
-        return "analyticsLack";
-    }
-
-    @GetMapping("analyticsTop")
-    public String getAnalyticsTop() {
-        return "analyticsTop";
     }
 
     @GetMapping("/export/pdf")

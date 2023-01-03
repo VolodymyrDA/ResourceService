@@ -9,11 +9,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-public class OrdersRestController {
+public class OrdersController {
     private final OrdersServiceImpl ordersService;
 
     @Autowired
-    public OrdersRestController(OrdersServiceImpl ordersService) {
+    public OrdersController(OrdersServiceImpl ordersService) {
         this.ordersService = ordersService;
     }
 

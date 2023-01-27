@@ -38,6 +38,11 @@ dependencies {
     compileOnly 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 }
+bootJar {
+    manifest {
+        attributes 'Start-Class': 'org.vdoloka.ProjectMain'
+    }
+}
 
 tasks.named('test') {
     useJUnitPlatform()

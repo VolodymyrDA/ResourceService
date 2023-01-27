@@ -54,5 +54,15 @@ springBoot {
 tasks.named('test') {
     useJUnitPlatform()
 }
+tasks.named("bootJar") {
+    archiveClassifier = 'boot'
+}
+
+tasks.named("jar") {
+    archiveClassifier = ''
+}
+tasks.named("bootJar") {
+    launchScript()
+}
 
 tasks.withType(Copy).all { duplicatesStrategy 'exclude' }

@@ -1,8 +1,11 @@
 package org.vdoloka.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@NoArgsConstructor
 public class Location {
-    private final int id;
-    private final String name;
+    private int id;
+    private String name;
 }

@@ -8,11 +8,11 @@ import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import java.util.List;
 
 @RestController
-public class HubsResourcesRestController {
+public class HubResourcesController {
     private final HubsRepositoryImpl hubsRepository ;
 
     @Autowired
-    public HubsResourcesRestController(HubsRepositoryImpl hubsRepository) {
+    public HubResourcesController(HubsRepositoryImpl hubsRepository) {
         this.hubsRepository = hubsRepository;
     }
 

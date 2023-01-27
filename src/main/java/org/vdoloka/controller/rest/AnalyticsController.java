@@ -11,30 +11,30 @@ import java.util.List;
 
 
 @RestController
-public class AnalyticsRestController {
-    private final AnalyticsServiceImpl analitycsService;
+public class AnalyticsController {
+    private final AnalyticsServiceImpl analyticsService;
 
     @Autowired
-    public AnalyticsRestController(AnalyticsServiceImpl analyticsService) {
-        this.analitycsService = analyticsService;
+    public AnalyticsController(AnalyticsServiceImpl analyticsService) {
+        this.analyticsService = analyticsService;
     }
 
 
     @GetMapping("analytics/")
     public List<HubResourcesDTO> getAnalyticsEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                      @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getResourcesOnHubs(page, itemPerPage);
+        return analyticsService.getResourcesOnHubs(page, itemPerPage);
     }
 
     @GetMapping("analytics/lack/")
     public List<HubResourcesDTO> getAnalyticsLackEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                          @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getLackResources(page, itemPerPage);
+        return analyticsService.getLackResources(page, itemPerPage);
     }
 
     @GetMapping("analytics/top/")
     public List<HubResourcesDTO> getAnalyticsTopEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                         @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return analitycsService.getCountOrderingResources(page, itemPerPage);
+        return analyticsService.getCountOrderingResources(page, itemPerPage);
     }
 }

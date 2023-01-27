@@ -41,7 +41,14 @@ dependencies {
 bootJar {
     manifest {
         attributes 'Start-Class': 'org.vdoloka.ProjectMain'
+        mainClass = 'org.vdoloka.ProjectMain'
     }
+}
+tasks.named("bootJar") {
+    mainClass = 'org.vdoloka.ProjectMain'
+}
+springBoot {
+    mainClass = 'org.vdoloka.ProjectMain'
 }
 
 tasks.named('test') {

@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/project
     username: postgres
-    password: 123547
+    password: ${password}
     driver-class-name: org.postgresql.Driver
 
   freemarker:

@@ -42,8 +42,6 @@ sourceSets {
     main.resources.srcDir "src/main/resources"
 }
 
-duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
 jar {
     manifest {
         attributes 'Main-Class': 'org.vdoloka.ProjectMain'

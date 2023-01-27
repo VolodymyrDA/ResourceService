@@ -45,5 +45,6 @@ sourceSets {
 jar {
     manifest {
         attributes 'Main-Class': 'org.vdoloka.ProjectMain'
+        duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     }
 }

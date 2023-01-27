@@ -41,6 +41,7 @@ sourceSets {
     main.java.srcDir "src/main/java"
     main.resources.srcDir "src/main/resources"
 }
+tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
 
 jar {
     manifest {

@@ -37,3 +37,13 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+sourceSets {
+    main.java.srcDir "src/main/java"
+    main.resources.srcDir "src/main/resources"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.vdoloka.ProjectMain'
+    }
+}

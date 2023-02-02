@@ -1,21 +1,16 @@
 package org.vdoloka.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class HubResourcesController {
-    private final HubsRepositoryImpl hubsRepository ;
-
-    @Autowired
-    public HubResourcesController(HubsRepositoryImpl hubsRepository) {
-        this.hubsRepository = hubsRepository;
-    }
-
+    private final HubsRepositoryImpl hubsRepository;
 
     @GetMapping("/hubResources/get")
     public List<HubResourcesDTO> getEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
@@ -24,6 +19,7 @@ public class HubResourcesController {
     }
 
     @PostMapping("/hubResources/add")
-    public void supplementHubResources(HubResourcesDTO hubResourcesDTO) { hubsRepository.increaseResourceQuantityBySupplement(hubResourcesDTO);
+    public void supplementHubResources(HubResourcesDTO hubResourcesDTO) {
+        hubsRepository.increaseResourceQuantityBySupplement(hubResourcesDTO);
     }
 }

@@ -1,6 +1,6 @@
 package org.vdoloka.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.service.impl.OrdersServiceImpl;
@@ -8,15 +8,10 @@ import org.vdoloka.service.impl.OrdersServiceImpl;
 import javax.validation.constraints.Digits;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class HubsOrdersRestController {
     private final OrdersServiceImpl ordersService;
-
-    @Autowired
-    public HubsOrdersRestController(OrdersServiceImpl ordersService) {
-        this.ordersService = ordersService;
-    }
-
     @GetMapping("/hubs/availableOrders")
     public List<HubOrderDTO> getOrdersPageData(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                                @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {

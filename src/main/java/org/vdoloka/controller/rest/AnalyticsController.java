@@ -1,6 +1,6 @@
 package org.vdoloka.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,15 +10,10 @@ import org.vdoloka.service.impl.AnalyticsServiceImpl;
 import java.util.List;
 
 
+@RequiredArgsConstructor
 @RestController
 public class AnalyticsController {
     private final AnalyticsServiceImpl analyticsService;
-
-    @Autowired
-    public AnalyticsController(AnalyticsServiceImpl analyticsService) {
-        this.analyticsService = analyticsService;
-    }
-
 
     @GetMapping("analytics/")
     public List<HubResourcesDTO> getAnalyticsEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,

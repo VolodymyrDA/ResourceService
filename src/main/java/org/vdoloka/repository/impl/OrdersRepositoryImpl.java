@@ -4,6 +4,7 @@ import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.dto.OrderDto;
+import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
 import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
@@ -49,7 +50,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<OrderDto> getOrders(int page, int itemPerPage) {
+    public List<OrderInfoDto> getOrders(int page, int itemPerPage) {
         String sql = "SELECT resource_id,quantity,o.id,hub_id, r.name as \"r.name\"  FROM orders o " +
                 "JOIN resources r on o.resource_id = r.id where o.user_id = " + getCurrentUserId() +
                 " ORDER BY o.hub_id DESC ,id DESC" +

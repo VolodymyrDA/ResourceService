@@ -2,6 +2,7 @@ package org.vdoloka.service.impl;
 
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.OrderDto;
+import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 import org.vdoloka.service.OrdersService;
@@ -34,8 +35,8 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<OrderDto> getOrders(int page, int itemPerPage) {
-        List<OrderDto> orderlist = ordersRepository.getOrders(page, itemPerPage);
+    public List<OrderInfoDto> getOrders(int page, int itemPerPage) {
+        List<OrderInfoDto> orderlist = ordersRepository.getOrders(page, itemPerPage);
         return orderlist;
     }
 

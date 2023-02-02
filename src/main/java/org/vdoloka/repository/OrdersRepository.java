@@ -3,6 +3,7 @@ package org.vdoloka.repository;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.dto.OrderDto;
+import org.vdoloka.dto.OrderInfoDto;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface OrdersRepository {
 
     void confirmOrder(int orderId);
 
-    List<OrderDto> getOrders(int page, int itemPerPage);
+    List<OrderInfoDto> getOrders(int page, int itemPerPage);
 
     List<HubOrderDTO> getHubOrders(int page, int itemPerPage);
 

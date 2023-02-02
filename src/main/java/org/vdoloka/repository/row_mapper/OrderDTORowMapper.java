@@ -1,15 +1,15 @@
 package org.vdoloka.repository.row_mapper;
 
-import org.vdoloka.dto.OrderDto;
+import org.vdoloka.dto.OrderInfoDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OrderDTORowMapper implements RowMapper<OrderDto> {
+public class OrderDTORowMapper implements RowMapper<OrderInfoDto> {
     @Override
-    public OrderDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return OrderDto.builder()
+    public OrderInfoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return OrderInfoDto.builder()
                 .resourceId(rs.getInt("resource_id"))
                 .quantity(rs.getInt("quantity"))
                 .id(rs.getInt("id"))

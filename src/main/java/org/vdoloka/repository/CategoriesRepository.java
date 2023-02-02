@@ -1,8 +1,8 @@
 package org.vdoloka.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.vdoloka.entity.Category;
 
-public interface CategoriesRepository extends CrudRepository<Category, Long> {
+public interface CategoriesRepository extends JpaRepository<Category, Long> {
 }
 

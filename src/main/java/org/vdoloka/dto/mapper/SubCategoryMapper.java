@@ -11,5 +11,5 @@ import java.util.List;
 public interface SubCategoryMapper {
     SubCategoryMapper INSTANCE = Mappers.getMapper(SubCategoryMapper.class);
     SubCategoryDTO toDto(SubCategory subCategory);
-    List<SubCategoryDTO> map(List<SubCategory> subCategories);
+    List<SubCategoryDTO> toDtoList(List<SubCategory> subCategories);
 }

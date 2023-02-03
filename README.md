@@ -27,3 +27,7 @@ the amount of residues
 enough to provide unfinished queries
 -output of 10 popular (by number of orders) resources
 export them to PDF, Word & Excel.
+
+Swagger UI:
+/swagger-ui/index.html
+(For registered users only)

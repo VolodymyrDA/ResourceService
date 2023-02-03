@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/project
-    username: postgres
-    password: 123547
+    url: ${DATABASE_URL}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
     driver-class-name: org.postgresql.Driver
 
   freemarker:
     expose-request-attributes=true:
 
   flyway:
-    enabled: true
+    enabled: false
     baseline-on-migrate: true
     validate-on-migrate: false

@@ -7,7 +7,7 @@ import org.vdoloka.dto.OrderInfoDto;
 
 import java.util.List;
 
-public interface OrdersRepository {
+public interface OrdersRepository{
 
     void addOrder(OrderDto orderDto);
 
@@ -22,4 +22,6 @@ public interface OrdersRepository {
     List<HubResourcesDTO> getLackResources(int page, int itemPerPage);
 
     List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage);
+
+    boolean isOrderExist(int orderId);
 }

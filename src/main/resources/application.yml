@@ -5,10 +5,13 @@ spring:
     password: ${PGPASSWORD}
     driver-class-name: org.postgresql.Driver
 
-  freemarker:
-    expose-request-attributes=true:
+freemarker:
+  expose-request-attributes=true:
 
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
-    validate-on-migrate: false
+flyway:
+  enabled: true
+  baseline-on-migrate: true
+  validate-on-migrate: false
+Server:
+  error:
+    include-message: always

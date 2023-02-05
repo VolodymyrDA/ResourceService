@@ -18,7 +18,7 @@ public class HubsRepositoryImpl implements HubsRepository {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
-    public int getCurrentUserId() {
+    private int getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
@@ -36,7 +36,6 @@ public class HubsRepositoryImpl implements HubsRepository {
     }
 
     public void increaseResourceQuantityBySupplement(HubResourcesDTO hubResourcesDTO) {
-
         String sql = "select exists(select hub_id from hubs where hub_id=" + getCurrentUserId() + " and resource_id=" + hubResourcesDTO.getResourceId() + ")";
         if (Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, boolean.class))) {
             sql = "UPDATE hubs " + "SET  hub_id =" + getCurrentUserId() + ",resource_id=" + hubResourcesDTO.getResourceId()

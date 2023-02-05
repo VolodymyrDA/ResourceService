@@ -113,4 +113,9 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 " OFFSET " + (page - 1) * itemPerPage;
         return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
+    @Override
+    public boolean isOrderExist(int orderId) {
+        String sql = "SELECT count(*) FROM orders WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, orderId) > 0;
+    }
 }

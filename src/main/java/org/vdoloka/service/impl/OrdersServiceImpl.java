@@ -3,12 +3,14 @@ package org.vdoloka.service.impl;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
+import org.vdoloka.exeption.OrderNotFoundException;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 import org.vdoloka.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -29,7 +31,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    @Transactional
     public void confirmOrder(int orderId) {
+        if (!ordersRepository.isOrderExist(orderId)) {
+            throw new OrderNotFoundException();
+        }
         hubsRepository.reduceResourceQuantityByOrder(orderId);
         ordersRepository.confirmOrder(orderId);
     }
@@ -51,5 +57,4 @@ public class OrdersServiceImpl implements OrdersService {
         List<HubOrderDTO> hubOrderlist = ordersRepository.getConfirmedOrders(page, itemPerPage);
         return hubOrderlist;
     }
-
 }

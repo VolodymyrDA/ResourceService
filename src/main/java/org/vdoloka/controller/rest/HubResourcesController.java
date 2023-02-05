@@ -12,13 +12,13 @@ import java.util.List;
 public class HubResourcesController {
     private final HubsRepositoryImpl hubsRepository;
 
-    @GetMapping("/hubResources/get")
+    @GetMapping("/hubResources/")
     public List<HubResourcesDTO> getEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                             @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
         return hubsRepository.getResources(page, itemPerPage);
     }
 
-    @PostMapping("/hubResources/add")
+    @PatchMapping("/hubResources/")
     public void supplementHubResources(HubResourcesDTO hubResourcesDTO) {
         hubsRepository.increaseResourceQuantityBySupplement(hubResourcesDTO);
     }

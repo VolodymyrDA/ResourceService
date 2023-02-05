@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class HubsOrdersRestController {
+public class HubOrdersController {
     private final OrdersServiceImpl ordersService;
     @GetMapping("/hubs/availableOrders")
     public List<HubOrderDTO> getOrdersPageData(@RequestParam(name = "page", required = false, defaultValue = "1") int page,

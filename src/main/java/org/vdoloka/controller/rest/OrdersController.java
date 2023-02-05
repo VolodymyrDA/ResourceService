@@ -14,13 +14,13 @@ import java.util.List;
 public class OrdersController {
     private final OrdersServiceImpl ordersService;
 
-    @GetMapping("/orders/get")
+    @GetMapping("/orders/")
     public List<OrderInfoDto> getPageData(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                           @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
         return ordersService.getOrders(page, itemPerPage);
     }
 
-    @PostMapping("/orders/add")
+    @PostMapping("/orders/")
     public void addOrder(@Valid OrderDto orderDto) {
         ordersService.addOrder(orderDto);
     }

@@ -31,8 +31,8 @@ public class CategoriesController {
         return SubCategoryMapper.INSTANCE.toDtoList(subCategoriesRepository.findAllByCategoryId(categoryId));
     }
 
-    @GetMapping(path = "/resources/{subCategoryId}")
-    public List<ResourceDTO> getResources(@PathVariable int subCategoryId) {
-        return ResourceMapper.INSTANCE.toDtoList(resourcesRepository.findAllBySubcategoryId(subCategoryId));
+    @GetMapping(path = "/resources/{resourceId}")
+    public List<ResourceDTO> getResources(@PathVariable int resourceId) {
+        return ResourceMapper.INSTANCE.toDtoList(resourcesRepository.findAllBySubcategoryId(resourceId));
     }
 }

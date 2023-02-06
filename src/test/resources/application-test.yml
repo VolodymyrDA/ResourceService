@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   freemarker:
-    expose-request-attributes=true:
+    expose-request-attributes: true
 
   flyway:
     enabled: false

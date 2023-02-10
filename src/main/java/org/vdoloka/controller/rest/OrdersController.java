@@ -6,7 +6,6 @@ import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.service.impl.OrdersServiceImpl;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class OrdersController {
     }
 
     @PostMapping("/orders/")
-    public void addOrder(@Valid OrderDto orderDto) {
+    public void addOrder(OrderDto orderDto) {
         ordersService.addOrder(orderDto);
     }
 }

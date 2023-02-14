@@ -1,0 +1,16 @@
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (2, 2, 'Body Armour');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (3, 2, 'Armor platinum');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (1, 2, 'Plate Carriers/ Chest Rigs');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (4, 2, 'Helmets');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (5, 1, 'Night-Vision Goggles');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (6, 1, 'Thermal Vision Devices');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (7, 3, 'Tactical clothing');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (8, 3, 'Knee pads / Elbow pads');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (9, 3, 'Belts');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (10, 4, 'Combat boots');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (11, 4, 'Tracking shoes');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (12, 5, 'Flashlights and Aiming Lasers');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (13, 5, 'Sights');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (14, 6, 'Military headsets');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (15, 6, 'Hearing Protection Earmuffs');
+INSERT INTO public.subcategories (subcategory_id, category_id, name) VALUES (16, 6, 'radio stations');

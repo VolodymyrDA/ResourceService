@@ -1,8 +1,17 @@
 let orders = 0;
 let page = 1;
 let SelectedResourceId = 0;
-
+$(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        if (options.type == "POST") {
+            xhr.setRequestHeader(header, token);
+        }
+    });
+});
 function showOrders() {
+
     $.ajax({
         url: 'orders/?page=' + page,
         dataType: 'json',

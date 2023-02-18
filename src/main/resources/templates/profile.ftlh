@@ -45,6 +45,7 @@ locationId= user.getLocationId()
 
 <div class="container">
     <form action="/profile" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="form-group"><label class="form-label"> User Name : </label>
             <input class="form-control" type="text" name="userName" value="${username}">
         </div>

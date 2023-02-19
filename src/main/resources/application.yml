@@ -14,3 +14,7 @@ spring:
 Server:
   error:
     include-message: always
+springdoc:
+  swagger-ui:
+    csrf:
+      enabled: true

@@ -1,20 +1,17 @@
 package org.vdoloka.config;
 
+import lombok.RequiredArgsConstructor;
 import org.vdoloka.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
+@RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {
-    private User user;
-
-    public UserPrincipal(User user) {
-        this.user = user;
-    }
+    private final User user;
 
     public int getId() {
         return user.getId();
@@ -36,11 +33,8 @@ public class UserPrincipal implements UserDetails {
         return user.getLocationId();
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
-        return authorities;
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override

@@ -5,6 +5,8 @@
     <script src="js/jquery-3.6.0.js"></script>
     <script src="js/HubsOrders.js"></script>
     <meta name="theme-color" content="#7952b3">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;

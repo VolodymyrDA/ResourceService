@@ -4,6 +4,7 @@ import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.exeption.OrderNotFoundException;
+import org.vdoloka.model.SortDirection;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 import org.vdoloka.service.OrdersService;
@@ -41,20 +42,17 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<OrderInfoDto> getOrders(int page, int itemPerPage) {
-        List<OrderInfoDto> orderlist = ordersRepository.getOrders(page, itemPerPage);
-        return orderlist;
+    public List<OrderInfoDto> getOrders(int page, int size, String sort, SortDirection direction) {
+        return ordersRepository.getOrders(page,size, sort,direction);
     }
 
     @Override
     public List<HubOrderDTO> getHubOrders(int page, int itemPerPage) {
-        List<HubOrderDTO> hubOrderlist = ordersRepository.getHubOrders(page, itemPerPage);
-        return hubOrderlist;
+        return ordersRepository.getHubOrders(page, itemPerPage);
     }
 
     @Override
     public List<HubOrderDTO> getConfirmedOrders(int page, int itemPerPage) {
-        List<HubOrderDTO> hubOrderlist = ordersRepository.getConfirmedOrders(page, itemPerPage);
-        return hubOrderlist;
+        return ordersRepository.getConfirmedOrders(page, itemPerPage);
     }
 }

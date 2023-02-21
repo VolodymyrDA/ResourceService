@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
+import org.vdoloka.model.SortDirection;
 import org.vdoloka.service.impl.OrdersServiceImpl;
 
 import java.util.List;
@@ -14,9 +15,11 @@ public class OrdersController {
     private final OrdersServiceImpl ordersService;
 
     @GetMapping("/orders/")
-    public List<OrderInfoDto> getPageData(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-                                          @RequestParam(name = "itemPerPage", required = false, defaultValue = "10") int itemPerPage) {
-        return ordersService.getOrders(page, itemPerPage);
+    public List<OrderInfoDto> getOrders(        @RequestParam(defaultValue = "1") int page,
+                                                @RequestParam(defaultValue = "10") int size,
+                                                @RequestParam(defaultValue = "id") String sort,
+                                                @RequestParam(defaultValue = "ASC") SortDirection direction) {
+        return ordersService.getOrders(page, size,sort,direction);
     }
 
     @PostMapping("/orders/")

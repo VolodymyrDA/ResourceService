@@ -5,6 +5,7 @@ import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
+import org.vdoloka.model.SortDirection;
 import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
 import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
@@ -50,12 +51,12 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<OrderInfoDto> getOrders(int page, int itemPerPage) {
+    public List<OrderInfoDto> getOrders(int page, int size, String sort, SortDirection direction) {
         String sql = "SELECT resource_id,quantity,o.id,hub_id, r.name as \"r.name\"  FROM orders o " +
                 "JOIN resources r on o.resource_id = r.id where o.user_id = " + getCurrentUserId() +
-                " ORDER BY o.hub_id DESC ,id DESC" +
-                " LIMIT " + itemPerPage +
-                " OFFSET " + (page - 1) * itemPerPage;
+                " ORDER BY " + sort + " " + direction +
+                " LIMIT " + size +
+                " OFFSET " + (page - 1) * size;
         return namedJdbcTemplate.query(sql, new OrderDTORowMapper());
     }
 
@@ -113,6 +114,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 " OFFSET " + (page - 1) * itemPerPage;
         return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
+
     @Override
     public boolean isOrderExist(int orderId) {
         String sql = "SELECT count(*) FROM orders WHERE id = ?";

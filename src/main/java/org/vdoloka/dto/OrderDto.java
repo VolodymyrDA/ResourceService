@@ -1,12 +1,10 @@
 package org.vdoloka.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Max;
-
-@Builder
 @Data
+@Builder
 public class OrderDto {
     private final int resourceId;
     @Max(value = 1000, message = "too many quantity (max 1000) ")

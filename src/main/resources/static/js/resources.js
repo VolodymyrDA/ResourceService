@@ -1,7 +1,15 @@
 let orders = 0;
 let page = 1;
 let SelectedResourceId = 0;
-
+$(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        if (options.type === "PATCH") {
+            xhr.setRequestHeader(header, token);
+        }
+    });
+});
 function showHubResources() {
     $.ajax({
         url: '/hubResources/?page=' + page,

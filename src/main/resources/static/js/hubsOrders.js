@@ -1,5 +1,14 @@
 let page = 1;
 let confirmedPage = 1;
+$(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        if (options.type === "PUT") {
+            xhr.setRequestHeader(header, token);
+        }
+    });
+});
 function showOrders() {
     $.ajax({
         url: 'hubs/availableOrders?page=' + page,

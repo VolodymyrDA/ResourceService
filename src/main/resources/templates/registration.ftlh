@@ -25,6 +25,7 @@
     <h1 class="h3 mb-3 fw-normal">Registration</h1>
     <div class="container">
         <form action="/registration" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="form-group"><label class="form-label"> Username : </label>
                 <input class="form-control" type="text" name="username">
             </div>

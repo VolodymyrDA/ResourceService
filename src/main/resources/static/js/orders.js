@@ -1,10 +1,28 @@
 let orders = 0;
 let page = 1;
+let pageSize = 10;
 let SelectedResourceId = 0;
+let currentSortColumn = "id";
+let currentSortOrder = "ASC";
 
+function sortOrders(column) {
+    if (currentSortColumn === column) {
+        currentSortOrder = currentSortOrder === "ASC" ? "DESC" : "ASC";
+    } else {
+        currentSortColumn = column;
+        currentSortOrder = "ASC";
+        page=1;
+    }
+    $('#orders').empty();
+    showOrders();
+}
+function showMore() {
+    page++;
+    showOrders()
+}
 function showOrders() {
     $.ajax({
-        url: 'orders/?page=' + page,
+        url: 'orders/?page=' + page + '&size=' + pageSize + '&sort=' + currentSortColumn + '&direction=' + currentSortOrder,
         dataType: 'json',
         cache: 'false',
         success: function (data) {
@@ -24,8 +42,6 @@ function showOrders() {
                     '</div>';
             });
             $('#orders').append(orders);
-            orders++;
-            page++;
         }
     });
 }

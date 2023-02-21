@@ -59,19 +59,20 @@
 <br>
 <div class="container sticky-top">
     <div class="row mb-3  bg-info text-white">
-        <div class="col-1 themed-grid-col"> order id</div>
-        <div class="col-1 themed-grid-col"> resource id</div>
-        <div class="col-5 themed-grid-col"> resource name</div>
-        <div class="col-2 themed-grid-col"> quantity</div>
-        <div class="col-3 themed-grid-col"> status</div>
+        <div class="col-1 themed-grid-col" onclick="sortOrders('id')"> order id</div>
+        <div class="col-1 themed-grid-col" onclick="sortOrders('resource_id')"> resource id</div>
+        <div class="col-5 themed-grid-col" onclick="sortOrders('name')"> resource name</div>
+        <div class="col-2 themed-grid-col" onclick="sortOrders('quantity')"> quantity</div>
+        <div class="col-3 themed-grid-col" onclick="sortOrders('hub_id')"> status</div>
     </div>
 </div>
+
 
 <div id="orders" class="container"></div>
 
 <div class="container">
     <div class="row mb-3 align-items-center">
-        <button onclick="showOrders()" class=" btn btn-info" type="button">Show more</button>
+        <button onclick="showMore()" class=" btn btn-info" type="button">Show more</button>
     </div>
 </div>
 <#include "footer.ftlh">

@@ -1,29 +1,25 @@
 package org.vdoloka.repository.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.entity.User;
 import org.vdoloka.repository.UsersRepository;
 import org.vdoloka.repository.row_mapper.UserRowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class UsersRepositoryImpl implements UsersRepository {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public UsersRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedJdbcTemplate = namedJdbcTemplate;
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public int getCurrentUserId() {
+    private int getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
@@ -43,34 +39,45 @@ public class UsersRepositoryImpl implements UsersRepository {
     public void updateUser(User user) {
         String sql = "UPDATE users u SET ";
         if (user.getUsername() != null) {
-            sql = sql + "username = '" + user.getUsername() + "'";
+            sql += "username = '" + user.getUsername() + "'";
         }
         if (!user.getPassword().isEmpty()) {
-            sql = sql + ",password = '" + user.getPassword() + "'";
+            sql += ",password = '" + user.getPassword() + "'";
         }
         if (user.getDescription() != null) {
-            sql = sql + ",description = '" + user.getDescription() + "'";
+            sql += ",description = '" + user.getDescription() + "'";
         }
         if (user.getPhone() != null) {
-            sql = sql + ",phone = '" + user.getPhone() + "'";
+            sql += ",phone = '" + user.getPhone() + "'";
         }
         if (user.getLocationId() != 0) {
-            sql = sql + ",location_id = '" + user.getLocationId() + "'";
+            sql += ",location_id = '" + user.getLocationId() + "'";
         }
-        sql = sql + " WHERE u.id=" + getCurrentUserId();
-        jdbcTemplate.execute(sql);
+        sql += " WHERE u.id=" + getCurrentUserId();
+        jdbcTemplate.update(sql);
     }
 
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
+        String countSql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        Integer count = jdbcTemplate.queryForObject(countSql, Integer.class, username);
+        if (count == null || count == 0) {
+            return Optional.empty();
+        }
         String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
                 "where username= '" + username + "'";
-        return jdbcTemplate.queryForObject(sql, new UserRowMapper());
+
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new UserRowMapper()));
     }
 
     @Override
-    public User findByUserID(int id) {
-        String sql = "SELECT id,username,phone,date,description,location_id,password,active,r.role_name  FROM users u JOIN roles r on u.role_id = r.role_id " +
-                "where id= '" + id + "'";
-        return jdbcTemplate.queryForObject(sql, new UserRowMapper());
+    public Optional<User> findByUserID(int id) {
+        String countSql = "SELECT COUNT(*) FROM users WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(countSql, Integer.class, id);
+        if (count == null || count == 0) {
+            return Optional.empty();
+        }
+        String selectSql = "SELECT id, username, phone, date, description, location_id, password, active, r.role_name FROM users u JOIN roles r on u.role_id = r.role_id WHERE id = ?";
+
+        return Optional.ofNullable(jdbcTemplate.queryForObject(selectSql, new UserRowMapper()));
     }
 }

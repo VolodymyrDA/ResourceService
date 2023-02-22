@@ -1,9 +1,10 @@
 package org.vdoloka.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.vdoloka.entity.User;
 import org.vdoloka.repository.impl.UsersRepositoryImpl;
 import org.vdoloka.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +12,11 @@ import java.time.LocalDateTime;
 
 
 @Service
+@RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
-
     private final UsersRepositoryImpl usersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UsersServiceImpl(UsersRepositoryImpl usersRepository, PasswordEncoder passwordEncoder) {
-        this.usersRepository = usersRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public void addUser(User user) {
@@ -38,8 +34,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public User findByUserID(int id) {
-        User user = usersRepository.findByUserID(id);
+    public User findByUserID(int id) throws UsernameNotFoundException {
+        User user = usersRepository.findByUserID(id).orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
         user.setPassword("");
         return user;
     }

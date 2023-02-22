@@ -8,8 +8,7 @@ import org.vdoloka.model.SortDirection;
 
 import java.util.List;
 
-public interface OrdersRepository{
-
+public interface OrdersRepository {
     void addOrder(OrderDto orderDto);
 
     void confirmOrder(int orderId);

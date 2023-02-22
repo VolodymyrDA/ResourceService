@@ -113,6 +113,7 @@
             </form>
             <div class="text-end">
                 <form action="/logout" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <b>${userName} </b>
                     <button type="submit" value="Sign Out" class="btn btn-light text-dark me-2">Sign Out</button>
                 </form>

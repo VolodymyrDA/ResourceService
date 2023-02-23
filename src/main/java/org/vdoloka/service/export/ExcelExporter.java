@@ -19,11 +19,13 @@ import org.vdoloka.dto.HubResourcesDTO;
 public class ExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private final List<HubResourcesDTO> listEntities;
+    private final List<HubResourcesDTO> data;
+    private final String description;
+
 
     private void writeHeaderLine() {
         workbook = new XSSFWorkbook();
-        sheet = workbook.createSheet("lack resources");
+        sheet = workbook.createSheet(description);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -54,7 +56,7 @@ public class ExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
         int rowCount = 1;
-        for (HubResourcesDTO hubResourcesDTO : listEntities) {
+        for (HubResourcesDTO hubResourcesDTO : data) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, hubResourcesDTO.getResourceId(), style);

@@ -37,15 +37,15 @@ public class ExportController {
         List<HubResourcesDTO> hubResourcesDTOEntities = analyticsService.getData(type, PAGE, ITEMS_PER_PAGE);
         switch (format) {
             case PDF -> {
-                PDFExporter pdfExporter = new PDFExporter(hubResourcesDTOEntities);
+                PDFExporter pdfExporter = new PDFExporter(hubResourcesDTOEntities,type.getDescription());
                 pdfExporter.export(response);
             }
             case XLSX -> {
-                ExcelExporter excelExporter = new ExcelExporter(hubResourcesDTOEntities);
+                ExcelExporter excelExporter = new ExcelExporter(hubResourcesDTOEntities,type.getDescription());
                 excelExporter.export(response);
             }
             case DOCX -> {
-                WordExporter wordExporter = new WordExporter(hubResourcesDTOEntities);
+                WordExporter wordExporter = new WordExporter(hubResourcesDTOEntities,type.getDescription());
                 wordExporter.export(response);
             }
         }

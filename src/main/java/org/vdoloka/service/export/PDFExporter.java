@@ -11,11 +11,10 @@ import com.lowagie.text.pdf.*;
 import lombok.RequiredArgsConstructor;
 import org.vdoloka.dto.HubResourcesDTO;
 
-import static com.lowagie.text.Paragraph.*;
-
 @RequiredArgsConstructor
 public class PDFExporter {
-    private final List<HubResourcesDTO> listEntities;
+    private final List<HubResourcesDTO> data;
+    private final String description;
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
@@ -32,7 +31,7 @@ public class PDFExporter {
     }
 
     private void writeTableData(PdfPTable table) {
-        for (HubResourcesDTO hubResourcesDTO : listEntities) {
+        for (HubResourcesDTO hubResourcesDTO : data) {
             table.addCell(String.valueOf(hubResourcesDTO.getResourceId()));
             table.addCell(hubResourcesDTO.getResourceName());
             table.addCell(String.valueOf(hubResourcesDTO.getQuantity()));
@@ -40,22 +39,20 @@ public class PDFExporter {
     }
 
     public void export(HttpServletResponse response) throws DocumentException, IOException {
-        Document document = new Document(PageSize.A4);
-        PdfWriter.getInstance(document, response.getOutputStream());
-        document.open();
-        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        font.setSize(18);
-        font.setColor(Color.BLUE);
-        Paragraph p = new Paragraph("Total resources in stock", font);
-        p.setAlignment(ALIGN_CENTER);
-        document.add(p);
-        PdfPTable table = new PdfPTable(3);
-        table.setWidthPercentage(100f);
-        table.setWidths(new float[]{1.5f, 5f, 1.5f});
-        table.setSpacingBefore(10);
-        writeTableHeader(table);
-        writeTableData(table);
-        document.add(table);
-        document.close();
+        try (Document document = new Document(PageSize.A4)) {
+            PdfWriter.getInstance(document, response.getOutputStream());
+            document.open();
+            Font font = FontFactory.getFont(FontFactory.HELVETICA, Font.BOLD, 18, Color.BLUE);
+            final Paragraph p = new Paragraph(description, font);
+            p.setAlignment(Element.ALIGN_CENTER);
+            document.add(p);
+            final PdfPTable table = new PdfPTable(3);
+            table.setWidthPercentage(100f);
+            table.setWidths(new float[]{1.5f, 5f, 1.5f});
+            table.setSpacingBefore(10);
+            writeTableHeader(table);
+            writeTableData(table);
+            document.add(table);
+        }
     }
 }

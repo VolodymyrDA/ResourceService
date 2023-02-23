@@ -11,6 +11,8 @@ import com.lowagie.text.pdf.*;
 import lombok.RequiredArgsConstructor;
 import org.vdoloka.dto.HubResourcesDTO;
 
+import static com.lowagie.text.Element.ALIGN_CENTER;
+
 @RequiredArgsConstructor
 public class PDFExporter {
     private final List<HubResourcesDTO> data;
@@ -20,8 +22,7 @@ public class PDFExporter {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(Color.ORANGE);
         cell.setPadding(5);
-        Font font = FontFactory.getFont(FontFactory.HELVETICA);
-        font.setColor(Color.WHITE);
+        Font font = FontFactory.getFont(FontFactory.HELVETICA,12,Color.WHITE);
         cell.setPhrase(new Phrase("resource id", font));
         table.addCell(cell);
         cell.setPhrase(new Phrase("resource name", font));
@@ -42,11 +43,11 @@ public class PDFExporter {
         try (Document document = new Document(PageSize.A4)) {
             PdfWriter.getInstance(document, response.getOutputStream());
             document.open();
-            Font font = FontFactory.getFont(FontFactory.HELVETICA, Font.BOLD, 18, Color.BLUE);
-            final Paragraph p = new Paragraph(description, font);
-            p.setAlignment(Element.ALIGN_CENTER);
+            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, Color.BLUE);
+            Paragraph p = new Paragraph(description, font);
+            p.setAlignment(ALIGN_CENTER);
             document.add(p);
-            final PdfPTable table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(3);
             table.setWidthPercentage(100f);
             table.setWidths(new float[]{1.5f, 5f, 1.5f});
             table.setSpacingBefore(10);

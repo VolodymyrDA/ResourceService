@@ -18,7 +18,7 @@ public class HubsRepositoryImpl implements HubsRepository {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
-    private int getCurrentUserId() {
+    private long getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 

@@ -1,6 +1,9 @@
 package org.vdoloka.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.entity.User;
 import org.vdoloka.repository.UsersRepository;
@@ -19,21 +22,23 @@ public class UsersRepositoryImpl implements UsersRepository {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
-    private int getCurrentUserId() {
+    private long getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
     @Override
-    public void addUser(User user) {
-        final int newUserRoleId = 2;
-        String sql = "INSERT INTO users (username, password ,description ,phone,date,location_id,active,role_id)" +
-                " VALUES (:userName,:password,:description,:phone,:date,:location,:active,:roleId)";
-        namedJdbcTemplate.update(sql,
-                Map.of("userName", user.getUsername(), "password", user.getPassword(),
-                        "description", user.getDescription(), "phone", user.getPhone(),
-                        "date", user.getDate(), "location", user.getLocationId(),
-                        "active", user.getActive(), "roleId", newUserRoleId)
-        );
+    public long addUser(User user) {
+        final int NEW_USER_ROLE_ID = 2;
+        String sql = "INSERT INTO users (username, password ,description ,phone,date,location_id,active,role_id,sub)" +
+                " VALUES (:userName,:password,:description,:phone,:date,:location,:active,:roleId,:sub)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        namedJdbcTemplate.update(sql, new MapSqlParameterSource(
+                        Map.of("userName", user.getUsername(), "password", user.getPassword(),
+                                "description", user.getDescription(), "phone", user.getPhone(),
+                                "date", user.getDate(), "location", user.getLocationId(),
+                                "active", user.getActive(), "roleId", NEW_USER_ROLE_ID, "sub", user.getSub()))
+                , keyHolder, new String[]{"id"});
+        return keyHolder.getKey().longValue();
     }
 
     public void updateUser(User user) {
@@ -57,6 +62,11 @@ public class UsersRepositoryImpl implements UsersRepository {
         jdbcTemplate.update(sql);
     }
 
+    public boolean isUserExist(String sub) {
+        String countSql = "SELECT COUNT(*) FROM users WHERE sub = ?";
+        return jdbcTemplate.queryForObject(countSql, Integer.class, sub) > 0;
+    }
+
     public Optional<User> findByUsername(String username) {
         String countSql = "SELECT COUNT(*) FROM users WHERE username = ?";
         Integer count = jdbcTemplate.queryForObject(countSql, Integer.class, username);
@@ -70,7 +80,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public Optional<User> findByUserID(int id) {
+    public Optional<User> findByUserID(long id) {
         String countSql = "SELECT COUNT(*) FROM users WHERE id = ?";
         Integer count = jdbcTemplate.queryForObject(countSql, Integer.class, id);
         if (count == null || count == 0) {
@@ -78,6 +88,13 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
         String selectSql = "SELECT id, username, phone, date, description, location_id, password, active, r.role_name FROM users u JOIN roles r on u.role_id = r.role_id WHERE id = ?";
 
+        return Optional.ofNullable(jdbcTemplate.queryForObject(selectSql, new UserRowMapper()));
+    }
+
+    @Override
+    public Optional<User> findByUserSub(String userSub) {
+        String selectSql = "SELECT id, username, phone, date, description, location_id, password, active, sub, r.role_name " +
+                "FROM users u JOIN roles r on u.role_id = r.role_id WHERE u.sub = '" + userSub + "'";
         return Optional.ofNullable(jdbcTemplate.queryForObject(selectSql, new UserRowMapper()));
     }
 }

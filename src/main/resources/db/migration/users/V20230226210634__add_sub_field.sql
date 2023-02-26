@@ -1,0 +1,2 @@
+ALTER TABLE users
+    ADD COLUMN sub VARCHAR(25);

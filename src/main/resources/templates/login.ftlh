@@ -27,6 +27,12 @@
                 <a class="link-warning" href="/registration">Registration</a>
             </div>
         </form>
+
+        <br>
+
+        <div class="form-group">
+            <a class="btn btn-outline-primary" href="/oauth2/authorization/google">Sign in with Google</a>
+        </div>
     </div>
     <span class="text-muted"> <br> &copy; 2022 Cherkassy Geek, Inc</span>
 </main>

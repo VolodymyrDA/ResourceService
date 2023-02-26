@@ -10,10 +10,10 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class UserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails{
     private final User user;
 
-    public int getId() {
+    public long getId() {
         return user.getId();
     }
 

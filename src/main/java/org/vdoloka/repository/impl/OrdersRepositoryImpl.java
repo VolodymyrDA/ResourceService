@@ -30,7 +30,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int getCurrentUserId() {
+    public long getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 

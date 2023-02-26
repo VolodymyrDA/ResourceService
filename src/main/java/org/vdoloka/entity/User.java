@@ -17,5 +17,6 @@ public class User {
     private LocalDateTime date;
     private Boolean active;
     private String role;
-    private int id;
+    private String sub;
+    private long id;
 }

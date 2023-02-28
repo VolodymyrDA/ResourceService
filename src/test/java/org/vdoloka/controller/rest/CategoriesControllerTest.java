@@ -35,7 +35,7 @@ class CategoriesControllerTest {
     }
 
     @Test
-    void testGetSubcategories() {
+    void shouldGetSubcategories() {
         List<Category> categories = List.of(new Category(1, "Category 1"),
                 new Category(2, "Cubcategory 2"));
 

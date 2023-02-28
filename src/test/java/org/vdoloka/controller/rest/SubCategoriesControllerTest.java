@@ -15,7 +15,6 @@ import org.vdoloka.dto.SubCategoryDTO;
 import org.vdoloka.entity.SubCategory;
 import org.vdoloka.repository.SubCategoriesRepository;
 
-
 class SubCategoriesControllerTest {
 
     private AutoCloseable closeable;
@@ -36,7 +35,7 @@ class SubCategoriesControllerTest {
     }
 
     @Test
-    void testGetSubcategories() {
+    void shouldGetSubcategories() {
         int categoryId = 1;
         List<SubCategory> subCategories = List.of(new SubCategory(1, "Subcategory 1", 1),
                 new SubCategory(2, "Subcategory 2", 1));

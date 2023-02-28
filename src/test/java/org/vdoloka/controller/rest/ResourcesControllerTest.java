@@ -35,7 +35,7 @@ class ResourcesControllerTest {
     }
 
     @Test
-    void testGetSubcategories() {
+    void shouldGetSubcategories() {
         int subCategoryId = 1;
         List<Resource> resources = List.of(new Resource(1, "Resource 1", 1),
                 new Resource(2, "Resource 2", 1));

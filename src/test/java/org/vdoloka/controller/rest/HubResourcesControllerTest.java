@@ -1,13 +1,12 @@
 package org.vdoloka.controller.rest;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.impl.HubsRepositoryImpl;
+import org.vdoloka.repository.impl.HubsRepository;
 
 import java.util.List;
 
@@ -15,23 +14,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 class HubResourcesControllerTest {
-    private AutoCloseable closeable;
     @InjectMocks
     private HubResourcesController hubResourcesController;
     @Mock
-    private HubsRepositoryImpl hubsRepository;
-
-    @BeforeEach
-    void setUp() {
-        closeable = MockitoAnnotations.openMocks(this);
-    }
-
-    @AfterEach
-    void closeService() throws Exception {
-        closeable.close();
-    }
+    private HubsRepository hubsRepository;
 
     @Test
     void shouldGetEntries() {

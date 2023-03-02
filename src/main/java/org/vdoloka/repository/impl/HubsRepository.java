@@ -2,7 +2,6 @@ package org.vdoloka.repository.impl;
 
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.HubsRepository;
 import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class HubsRepositoryImpl implements HubsRepository {
+public class HubsRepository implements org.vdoloka.repository.HubsRepository {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
@@ -23,7 +22,7 @@ public class HubsRepositoryImpl implements HubsRepository {
     }
 
     @Autowired
-    public HubsRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
+    public HubsRepository(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
         this.jdbcTemplate = jdbcTemplate;
     }

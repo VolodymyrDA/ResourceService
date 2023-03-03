@@ -1,4 +1,4 @@
-package org.vdoloka.exceptionhandler;
+package org.vdoloka.controller.exceptionhandler;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

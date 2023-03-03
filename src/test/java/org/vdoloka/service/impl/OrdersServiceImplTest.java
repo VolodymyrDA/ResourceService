@@ -11,11 +11,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vdoloka.dto.OrderDto;
-import org.vdoloka.exeption.OrderNotFoundException;
+import org.vdoloka.exception.OrderNotFoundException;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 
-class OrdersServiceImplImplTest {
+class OrdersServiceImplTest {
 
     @Mock
     private OrdersRepositoryImpl ordersRepository;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
-import org.vdoloka.exeption.OrderNotFoundException;
+import org.vdoloka.exception.OrderNotFoundException;
 import org.vdoloka.model.SortDirection;
 import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;

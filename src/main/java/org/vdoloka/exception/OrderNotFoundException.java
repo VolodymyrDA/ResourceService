@@ -1,4 +1,4 @@
-package org.vdoloka.exeption;
+package org.vdoloka.exception;
 
 public class OrderNotFoundException extends RuntimeException {
     public OrderNotFoundException() {

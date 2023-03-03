@@ -1,16 +1,16 @@
 package org.vdoloka.config;
 
 import lombok.RequiredArgsConstructor;
-import org.vdoloka.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.vdoloka.entity.User;
 
 import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class UserPrincipal implements UserDetails{
+public class UserPrincipal implements UserDetails {
     private final User user;
 
     public long getId() {

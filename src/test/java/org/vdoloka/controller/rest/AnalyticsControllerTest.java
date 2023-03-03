@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.model.AnalyticsType;
-import org.vdoloka.service.impl.AnalyticsService;
+import org.vdoloka.service.impl.AnalyticsServiceImpl;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class AnalyticsControllerTest {
 
     @Mock
-    private AnalyticsService analyticsService;
+    private AnalyticsServiceImpl analyticsServiceImpl;
 
     @InjectMocks
     private AnalyticsController analyticsController;
@@ -33,7 +33,7 @@ class AnalyticsControllerTest {
         List<HubResourcesDTO> expectedData = List.of((
                         HubResourcesDTO.builder().resourceId(1).quantity(2).build()),
                 HubResourcesDTO.builder().resourceId(1).quantity(2).build());
-        when(analyticsService.getData(eq(type), anyInt(), anyInt())).thenReturn(expectedData);
+        when(analyticsServiceImpl.getData(eq(type), anyInt(), anyInt())).thenReturn(expectedData);
 
         List<HubResourcesDTO> actualData = analyticsController.getAnalytics(type, page, itemsPerPage);
 

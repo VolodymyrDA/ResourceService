@@ -8,6 +8,8 @@ public interface HubsRepository {
 
     void reduceResourceQuantityByOrder(int orderId);
 
+    void increaseResourceQuantityBySupplement(HubResourcesDTO hubResourcesDTO);
+
     List<HubResourcesDTO> getAllResources(int page, int itemPerPage);
 
     List<HubResourcesDTO> getResources(int page, int itemPerPage);

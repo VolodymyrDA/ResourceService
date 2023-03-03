@@ -1,4 +1,4 @@
-package org.vdoloka.integration;
+package org.vdoloka.controller.ViewController;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasSize;
@@ -7,8 +7,6 @@ import static org.hamcrest.Matchers.is;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -16,11 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.vdoloka.dto.OrderDto;
-import org.vdoloka.service.impl.OrdersServiceImpl;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class OrdersTest {
+class OrdersTestIT {
     @LocalServerPort
     int port;
     private static final String ORDERS_URL = "/orders/";

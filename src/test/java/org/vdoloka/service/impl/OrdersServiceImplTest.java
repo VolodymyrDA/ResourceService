@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.exeption.OrderNotFoundException;
-import org.vdoloka.repository.impl.HubsRepositoryImpl;
+import org.vdoloka.repository.impl.HubsRepository;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 
 class OrdersServiceImplTest {
@@ -21,10 +21,10 @@ class OrdersServiceImplTest {
     private OrdersRepositoryImpl ordersRepository;
 
     @Mock
-    private HubsRepositoryImpl hubsRepository;
+    private HubsRepository hubsRepository;
 
     @InjectMocks
-    private OrdersServiceImpl ordersService;
+    private OrdersService ordersService;
 
     @BeforeEach
     void setUp() {

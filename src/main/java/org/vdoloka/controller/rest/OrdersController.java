@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.model.SortDirection;
-import org.vdoloka.service.impl.OrdersServiceImpl;
+import org.vdoloka.service.impl.OrdersService;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class OrdersController {
-    private final OrdersServiceImpl ordersService;
+    private final OrdersService ordersService;
 
     @GetMapping("/orders/")
     public List<OrderInfoDto> getOrders(        @RequestParam(defaultValue = "1") int page,

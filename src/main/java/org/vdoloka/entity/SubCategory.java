@@ -1,5 +1,6 @@
 package org.vdoloka.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "SUBCATEGORIES")
+@AllArgsConstructor
 public class SubCategory {
     @Id
     @GeneratedValue(generator = "increment")

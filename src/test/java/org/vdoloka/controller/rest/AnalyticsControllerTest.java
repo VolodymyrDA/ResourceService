@@ -5,54 +5,38 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.service.impl.AnalyticsServiceImpl;
+import org.vdoloka.model.AnalyticsType;
+import org.vdoloka.service.impl.AnalyticsService;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class AnalyticsControllerTest {
-    private MockMvc mockMvc;
 
     @Mock
-    private AnalyticsServiceImpl analyticsService;
+    private AnalyticsService analyticsService;
 
     @InjectMocks
     private AnalyticsController analyticsController;
 
     @Test
-    void shouldGetAnalyticsEntries() throws Exception {
-        List<HubResourcesDTO> resourcesOnHubs = List.of();
-        when(analyticsService.getResourcesOnHubs(1, 10)).thenReturn(resourcesOnHubs);
+    void testGetAnalytics() {
+        AnalyticsType type = AnalyticsType.RESOURCES_ON_HUBS;
+        int page = 1;
+        int itemsPerPage = 10;
+        List<HubResourcesDTO> expectedData = List.of((
+                        HubResourcesDTO.builder().resourceId(1).quantity(2).build()),
+                HubResourcesDTO.builder().resourceId(1).quantity(2).build());
+        when(analyticsService.getData(eq(type), anyInt(), anyInt())).thenReturn(expectedData);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(analyticsController).build();
-        mockMvc.perform(get("/analytics/?page=1&itemPerPage=10"))
-                .andExpect(status().isOk());
-    }
+        List<HubResourcesDTO> actualData = analyticsController.getAnalytics(type, page, itemsPerPage);
 
-    @Test
-    void shouldGetAnalyticsLackEntries() throws Exception {
-        List<HubResourcesDTO> lackResources = List.of();
-        when(analyticsService.getLackResources(1, 10)).thenReturn(lackResources);
-
-        mockMvc = MockMvcBuilders.standaloneSetup(analyticsController).build();
-        mockMvc.perform(get("/analytics/lack/?page=1&itemPerPage=10"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void shouldGetAnalyticsTopEntries() throws Exception {
-        List<HubResourcesDTO> countOrderingResources = List.of();
-        when(analyticsService.getCountOrderingResources(1, 10)).thenReturn(countOrderingResources);
-
-        mockMvc = MockMvcBuilders.standaloneSetup(analyticsController).build();
-        mockMvc.perform(get("/analytics/top/?page=1&itemPerPage=10"))
-                .andExpect(status().isOk());
+        assertThat(actualData).isEqualTo(expectedData);
     }
 }

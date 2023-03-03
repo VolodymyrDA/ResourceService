@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.HubOrderDTO;
-import org.vdoloka.service.impl.OrdersServiceImpl;
+import org.vdoloka.service.impl.OrdersService;
 
 @ExtendWith(MockitoExtension.class)
 class HubOrdersControllerTest {
@@ -22,7 +22,7 @@ class HubOrdersControllerTest {
     private HubOrdersController hubOrdersController;
 
     @Mock
-    private OrdersServiceImpl ordersService;
+    private OrdersService ordersService;
 
     @Test
     void shouldReturnOrdersListWhenGetOrders() {
@@ -57,6 +57,7 @@ class HubOrdersControllerTest {
     @Test
     void shouldCallConfirmOrderOnOrdersService() {
         hubOrdersController.confirmOrderById(1);
+
         verify(ordersService, times(1)).confirmOrder(1);
     }
 }

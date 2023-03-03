@@ -14,5 +14,6 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "date", ignore = true)
     @Mapping(target = "active", ignore = true)
+    @Mapping(target = "sub", ignore = true)
     User toEntity(UserDTO userDTO);
 }

@@ -12,7 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.impl.HubsRepository;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
 
 import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.*;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class HubResourcesControllerTestIT {
     @Mock
-    private HubsRepository hubsRepository;
+    private HubsRepositoryImpl hubsRepository;
 
     @InjectMocks
     private HubResourcesController hubResourcesController;

@@ -3,18 +3,18 @@ package org.vdoloka.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.model.AnalyticsType;
-import org.vdoloka.repository.impl.HubsRepository;
-import org.vdoloka.repository.impl.OrdersRepositoryImpl;
+import org.vdoloka.repository.OrdersRepository;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AnalyticsService implements org.vdoloka.service.AnalyticsService {
+public class AnalyticsServiceImpl implements org.vdoloka.service.AnalyticsService {
 
-    private final OrdersRepositoryImpl ordersRepository;
-    private final HubsRepository hubsRepository;
+    private final OrdersRepository ordersRepository;
+    private final HubsRepositoryImpl hubsRepository;
 
     @Override
     public List<HubResourcesDTO> getData(AnalyticsType analyticsType, int page, int itemsPerPage) {

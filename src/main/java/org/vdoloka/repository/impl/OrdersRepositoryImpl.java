@@ -1,5 +1,6 @@
 package org.vdoloka.repository.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.HubResourcesDTO;
@@ -10,7 +11,6 @@ import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
 import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
 import org.vdoloka.repository.row_mapper.OrderDTORowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,15 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class OrdersRepositoryImpl implements OrdersRepository {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public OrdersRepositoryImpl(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedJdbcTemplate = namedJdbcTemplate;
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public long getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();

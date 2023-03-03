@@ -1,23 +1,18 @@
 package org.vdoloka.repository.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.vdoloka.entity.Location;
 import org.vdoloka.repository.LocationsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class LocationsRepositoryImpl implements LocationsRepository {
-
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public LocationsRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Location> getLocations() {

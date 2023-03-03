@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.vdoloka.dto.UserDTO;
 import org.vdoloka.dto.mapper.UserMapper;
 import org.vdoloka.entity.Location;
-import org.vdoloka.repository.impl.LocationsRepositoryImpl;
-import org.vdoloka.service.impl.UsersServiceImpl;
+import org.vdoloka.repository.LocationsRepository;
+import org.vdoloka.service.UsersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class ProfileController {
-    private final UsersServiceImpl usersService;
-    private final LocationsRepositoryImpl locationsRepository;
+    private final UsersService usersService;
+    private final LocationsRepository locationsRepository;
 
     @GetMapping("/profile")
     public String viewProfile(Model model) {

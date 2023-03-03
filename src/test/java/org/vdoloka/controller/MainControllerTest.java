@@ -1,4 +1,4 @@
-package org.vdoloka.controller.ViewController;
+package org.vdoloka.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest()
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class HubResourcesDTOOrdersControllerTest {
+class MainControllerTest {
     @Autowired
     protected WebApplicationContext context;
 
@@ -36,15 +36,16 @@ class HubResourcesDTOOrdersControllerTest {
     }
     @Test
 
+//    @WithMockUser(username="admin",roles={"USER"})
      void givenHomePageURI_ShouldBeTrue() throws Exception {
 
-        MvcResult mvcResult = mvc.perform(get("/hubsOrders"))
+        MvcResult mvcResult = mvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("hubsOrders"))
+                .andExpect(view().name("mainPage"))
                 .andReturn();
 
         String actualResult = mvcResult.getResponse().getContentAsString();
 
-        assertTrue(actualResult.contains("Orders request"));
+        assertTrue(actualResult.contains("bg.jpg"));
     }
 }

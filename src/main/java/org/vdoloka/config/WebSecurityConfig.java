@@ -9,42 +9,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.vdoloka.controller.GoogleAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-
     private final GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                    .antMatchers("/registration", "/css/*","/oauth2/**").permitAll()
-                    .antMatchers("/hubsOrders", "/resources").hasAnyRole("ADMIN", "HUB")
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/registration", "/css/*", "/oauth2/**").permitAll()
+                .antMatchers("/hubsOrders", "/resources").hasAnyRole("ADMIN", "HUB")
+                .anyRequest().authenticated()
+                .and()
                 .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/orders")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .defaultSuccessUrl("/orders")
+                .permitAll()
+                .and()
                 .oauth2Login()
                 .successHandler(googleAuthenticationSuccessHandler)
                 .loginPage("/login")
-                    .permitAll()
-//                    .userInfoEndpoint()
-//                        .userService(customOAuth2UserService)
-//                        .and()
-                        .and()
+                .permitAll()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/login")
-                 .permitAll()
-                    .and()
+                .logoutSuccessUrl("/login")
+                .permitAll()
+                .and()
                 .rememberMe();
 
         return httpSecurity.build();
@@ -54,5 +52,4 @@ public class WebSecurityConfig {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

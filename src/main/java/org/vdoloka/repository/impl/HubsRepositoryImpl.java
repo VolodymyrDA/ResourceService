@@ -1,30 +1,25 @@
 package org.vdoloka.repository.impl;
 
-import org.vdoloka.config.UserPrincipal;
-import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.vdoloka.config.UserPrincipal;
+import org.vdoloka.dto.HubResourcesDTO;
+import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
 
 import java.util.List;
 
 @Repository
-public class HubsRepository implements org.vdoloka.repository.HubsRepository {
+@RequiredArgsConstructor
+public class HubsRepositoryImpl implements org.vdoloka.repository.HubsRepository {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
 
     private long getCurrentUserId() {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-    }
-
-    @Autowired
-    public HubsRepository(NamedParameterJdbcTemplate namedJdbcTemplate, JdbcTemplate jdbcTemplate) {
-        this.namedJdbcTemplate = namedJdbcTemplate;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -34,6 +29,7 @@ public class HubsRepository implements org.vdoloka.repository.HubsRepository {
         jdbcTemplate.execute(sql);
     }
 
+    @Override
     public void increaseResourceQuantityBySupplement(HubResourcesDTO hubResourcesDTO) {
         String sql = "select exists(select hub_id from hubs where hub_id=" + getCurrentUserId() + " and resource_id=" + hubResourcesDTO.getResourceId() + ")";
         if (Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, boolean.class))) {

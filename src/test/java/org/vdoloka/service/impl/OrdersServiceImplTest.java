@@ -11,8 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vdoloka.dto.OrderDto;
-import org.vdoloka.exeption.OrderNotFoundException;
-import org.vdoloka.repository.impl.HubsRepository;
+import org.vdoloka.exception.OrderNotFoundException;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
 
 class OrdersServiceImplTest {
@@ -21,10 +21,10 @@ class OrdersServiceImplTest {
     private OrdersRepositoryImpl ordersRepository;
 
     @Mock
-    private HubsRepository hubsRepository;
+    private HubsRepositoryImpl hubsRepository;
 
     @InjectMocks
-    private OrdersService ordersService;
+    private OrdersServiceImpl ordersServiceImpl;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +34,7 @@ class OrdersServiceImplTest {
     @Test
     void addOrder_ShouldInvokeRepositoryAddOrderMethod() {
         OrderDto orderDto = OrderDto.builder().build();
-        ordersService.addOrder(orderDto);
+        ordersServiceImpl.addOrder(orderDto);
         verify(ordersRepository).addOrder(orderDto);
     }
 
@@ -42,7 +42,7 @@ class OrdersServiceImplTest {
     void confirmOrder_ShouldReduceResourceQuantityAndConfirmOrder_WhenOrderExists() {
         int orderId = 1;
         when(ordersRepository.isOrderExist(orderId)).thenReturn(true);
-        ordersService.confirmOrder(orderId);
+        ordersServiceImpl.confirmOrder(orderId);
         verify(hubsRepository).reduceResourceQuantityByOrder(orderId);
         verify(ordersRepository).confirmOrder(orderId);
     }
@@ -51,7 +51,7 @@ class OrdersServiceImplTest {
     void confirmOrder_ShouldThrowOrderNotFoundException_WhenOrderDoesNotExist() {
         int orderId = 1;
         when(ordersRepository.isOrderExist(orderId)).thenReturn(false);
-        Throwable throwable = catchThrowable(() -> ordersService.confirmOrder(orderId));
+        Throwable throwable = catchThrowable(() -> ordersServiceImpl.confirmOrder(orderId));
         assertThat(throwable).isInstanceOf(OrderNotFoundException.class);
     }
 }

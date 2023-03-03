@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.impl.HubsRepository;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ class HubResourcesControllerTest {
     @InjectMocks
     private HubResourcesController hubResourcesController;
     @Mock
-    private HubsRepository hubsRepository;
+    private HubsRepositoryImpl hubsRepository;
 
     @Test
     void shouldGetEntries() {

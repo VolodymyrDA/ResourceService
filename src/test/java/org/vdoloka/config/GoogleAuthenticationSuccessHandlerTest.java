@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.vdoloka.controller.GoogleAuthenticationSuccessHandler;
 import org.vdoloka.entity.User;
 import org.vdoloka.repository.impl.UsersRepositoryImpl;
 
@@ -56,7 +57,7 @@ class GoogleAuthenticationSuccessHandlerTest {
     @Test
     void shouldAuthenticationSuccessWhenUserExist() throws IOException {
 
-        when(usersRepository.isUserExist("test_sub")).thenReturn(true);
+        when(usersRepository.isGoogleUserExist("test_sub")).thenReturn(true);
         User user = User.builder()
                 .id(1L)
                 .role("ROLE_USER")
@@ -73,7 +74,7 @@ class GoogleAuthenticationSuccessHandlerTest {
 
         successHandler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(usersRepository).isUserExist("test_sub");
+        verify(usersRepository).isGoogleUserExist("test_sub");
         verify(usersRepository).findByUserSub("test_sub");
 
         verify(response).sendRedirect((request.getContextPath() + "/orders"));
@@ -88,7 +89,7 @@ class GoogleAuthenticationSuccessHandlerTest {
     @Test
     void shouldAuthenticationSuccessForNewUser() throws IOException {
 
-        when(usersRepository.isUserExist("test_sub")).thenReturn(false);
+        when(usersRepository.isGoogleUserExist("test_sub")).thenReturn(false);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 oauth2User,
@@ -98,7 +99,7 @@ class GoogleAuthenticationSuccessHandlerTest {
 
         successHandler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(usersRepository).isUserExist(("test_sub"));
+        verify(usersRepository).isGoogleUserExist(("test_sub"));
         verify(usersRepository).addUser(any(User.class));
 
         verify(response).sendRedirect((request.getContextPath() + "/profile"));

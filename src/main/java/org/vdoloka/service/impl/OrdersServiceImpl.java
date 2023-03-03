@@ -1,29 +1,23 @@
 package org.vdoloka.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.vdoloka.dto.HubOrderDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
-import org.vdoloka.exeption.OrderNotFoundException;
+import org.vdoloka.exception.OrderNotFoundException;
 import org.vdoloka.model.SortDirection;
-import org.vdoloka.repository.impl.HubsRepository;
-import org.vdoloka.repository.impl.OrdersRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.vdoloka.repository.OrdersRepository;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class OrdersService implements org.vdoloka.service.OrdersService {
-
-    private final OrdersRepositoryImpl ordersRepository;
-    private final HubsRepository hubsRepository;
-
-    @Autowired
-    public OrdersService(OrdersRepositoryImpl ordersRepository, HubsRepository hubsRepository) {
-        this.ordersRepository = ordersRepository;
-        this.hubsRepository = hubsRepository;
-    }
+@RequiredArgsConstructor
+public class OrdersServiceImpl implements org.vdoloka.service.OrdersService {
+    private final OrdersRepository ordersRepository;
+    private final HubsRepositoryImpl hubsRepository;
 
     @Override
     public void addOrder(OrderDto orderDto) {
@@ -42,7 +36,7 @@ public class OrdersService implements org.vdoloka.service.OrdersService {
 
     @Override
     public List<OrderInfoDto> getOrders(int page, int size, String sort, SortDirection direction) {
-        return ordersRepository.getOrders(page,size, sort,direction);
+        return ordersRepository.getOrders(page, size, sort, direction);
     }
 
     @Override

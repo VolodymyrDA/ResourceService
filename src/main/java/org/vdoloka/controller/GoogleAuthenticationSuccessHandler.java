@@ -1,4 +1,4 @@
-package org.vdoloka.config;
+package org.vdoloka.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,8 +8,9 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.entity.User;
-import org.vdoloka.repository.impl.UsersRepositoryImpl;
+import org.vdoloka.repository.UsersRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,19 +20,18 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 public class GoogleAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-        private final UsersRepositoryImpl usersRepository;
+    private final UsersRepository usersRepository;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oauth2User = (DefaultOAuth2User) authentication.getPrincipal();
-        String userSub= oauth2User.getAttribute("sub");
-        if (usersRepository.isUserExist(userSub)){
+        String userSub = oauth2User.getAttribute("sub");
+        if (usersRepository.isGoogleUserExist(userSub)) {
             UserPrincipal principal = new UserPrincipal(usersRepository.findByUserSub(userSub).get());
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities()));
             response.sendRedirect(request.getContextPath() + "/orders");
-        }
-       else {
-           User user = User.builder()
+        } else {
+            User user = User.builder()
                     .username(oauth2User.getAttribute("given_name"))
                     .password(userSub)
                     .date(LocalDateTime.now())

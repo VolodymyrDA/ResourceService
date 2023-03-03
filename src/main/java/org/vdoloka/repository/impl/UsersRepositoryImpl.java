@@ -1,17 +1,17 @@
 package org.vdoloka.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Repository;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.entity.User;
 import org.vdoloka.repository.UsersRepository;
 import org.vdoloka.repository.row_mapper.UserRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.Optional;
@@ -41,6 +41,7 @@ public class UsersRepositoryImpl implements UsersRepository {
         return keyHolder.getKey().longValue();
     }
 
+    @Override
     public void updateUser(User user) {
         String sql = "UPDATE users u SET ";
         if (user.getUsername() != null) {
@@ -62,11 +63,13 @@ public class UsersRepositoryImpl implements UsersRepository {
         jdbcTemplate.update(sql);
     }
 
-    public boolean isUserExist(String sub) {
+    @Override
+    public boolean isGoogleUserExist(String sub) {
         String countSql = "SELECT COUNT(*) FROM users WHERE sub = ?";
         return jdbcTemplate.queryForObject(countSql, Integer.class, sub) > 0;
     }
 
+    @Override
     public Optional<User> findByUsername(String username) {
         String countSql = "SELECT COUNT(*) FROM users WHERE username = ?";
         Integer count = jdbcTemplate.queryForObject(countSql, Integer.class, username);

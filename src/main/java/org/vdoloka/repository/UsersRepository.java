@@ -15,4 +15,6 @@ public interface UsersRepository {
     Optional<User> findByUserID(long id);
 
     Optional<User> findByUserSub(String userSub);
+
+    boolean isGoogleUserExist(String sub);
 }

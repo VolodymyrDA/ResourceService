@@ -1,4 +1,4 @@
-package org.vdoloka.integration;
+package org.vdoloka.controller.ViewController;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasSize;
@@ -17,7 +17,7 @@ import org.vdoloka.dto.OrderDto;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class OrdersTest {
+class OrdersTestIT {
     @LocalServerPort
     int port;
     private static final String ORDERS_URL = "/orders/";

@@ -1,28 +1,32 @@
 package org.vdoloka.service.export;
 
-import java.awt.Color;
+import com.lowagie.text.Font;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.vdoloka.dto.HubResourcesDTO;
+
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
-import com.lowagie.text.*;
-import com.lowagie.text.pdf.*;
-import lombok.RequiredArgsConstructor;
-import org.vdoloka.dto.HubResourcesDTO;
-
 import static com.lowagie.text.Element.ALIGN_CENTER;
 
-@RequiredArgsConstructor
+@Component
+@NoArgsConstructor
 public class PDFExporter {
-    private final List<HubResourcesDTO> data;
-    private final String description;
+    private List<HubResourcesDTO> data;
+    private String description;
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(Color.ORANGE);
         cell.setPadding(5);
-        Font font = FontFactory.getFont(FontFactory.HELVETICA,12,Color.WHITE);
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Color.WHITE);
         cell.setPhrase(new Phrase("resource id", font));
         table.addCell(cell);
         cell.setPhrase(new Phrase("resource name", font));
@@ -38,7 +42,10 @@ public class PDFExporter {
             table.addCell(String.valueOf(hubResourcesDTO.getQuantity()));
         }
     }
-
+     public void getData( List<HubResourcesDTO> data, String description){
+        this.data=data;
+        this.description=description;
+     }
     public void export(HttpServletResponse response) throws DocumentException, IOException {
         try (Document document = new Document(PageSize.A4)) {
             PdfWriter.getInstance(document, response.getOutputStream());

@@ -6,21 +6,23 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 import org.vdoloka.dto.HubResourcesDTO;
 
-@RequiredArgsConstructor
+@Component
+@NoArgsConstructor
 public class ExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private final List<HubResourcesDTO> data;
-    private final String description;
+    private List<HubResourcesDTO> data;
+    private String description;
 
 
     private void writeHeaderLine() {
@@ -40,10 +42,10 @@ public class ExcelExporter {
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
         sheet.autoSizeColumn(columnCount);
         Cell cell = row.createCell(columnCount);
-        if (value instanceof Integer) {
-            cell.setCellValue((Integer) value);
-        } else if (value instanceof Boolean) {
-            cell.setCellValue((Boolean) value);
+        if (value instanceof Integer i) {
+            cell.setCellValue(i);
+        } else if (value instanceof Boolean b) {
+            cell.setCellValue(b);
         } else {
             cell.setCellValue((String) value);
         }
@@ -64,7 +66,10 @@ public class ExcelExporter {
             createCell(row, columnCount, hubResourcesDTO.getQuantity(), style);
         }
     }
-
+    public void getData( List<HubResourcesDTO> data, String description){
+        this.data=data;
+        this.description=description;
+    }
     public void export(HttpServletResponse response) throws IOException {
         writeHeaderLine();
         writeDataLines();

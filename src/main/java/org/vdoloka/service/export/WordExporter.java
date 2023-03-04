@@ -1,7 +1,8 @@
 package org.vdoloka.service.export;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
+import org.springframework.stereotype.Component;
 import org.vdoloka.dto.HubResourcesDTO;
 
 import javax.servlet.ServletOutputStream;
@@ -9,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@RequiredArgsConstructor
+@Component
+@NoArgsConstructor
 public class WordExporter {
     private XWPFDocument document;
-    private final List<HubResourcesDTO> data;
-    private final String description;
+    private List<HubResourcesDTO> data;
+    private String description;
 
     public void writeContent() {
         document = new XWPFDocument();
@@ -37,7 +39,10 @@ public class WordExporter {
             row.getCell(2).setText(String.valueOf(hubResourcesDTO.getQuantity()));
         }
     }
-
+    public void getData( List<HubResourcesDTO> data, String description){
+        this.data=data;
+        this.description=description;
+    }
     public void export(HttpServletResponse response) throws IOException {
         writeContent();
         ServletOutputStream outputStream = response.getOutputStream();

@@ -7,17 +7,18 @@ import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.exception.OrderNotFoundException;
 import org.vdoloka.model.SortDirection;
+import org.vdoloka.repository.HubsRepository;
 import org.vdoloka.repository.OrdersRepository;
-import org.vdoloka.repository.impl.HubsRepositoryImpl;
+import org.vdoloka.service.OrdersService;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrdersServiceImpl implements org.vdoloka.service.OrdersService {
+public class OrdersServiceImpl implements OrdersService {
     private final OrdersRepository ordersRepository;
-    private final HubsRepositoryImpl hubsRepository;
+    private final HubsRepository hubsRepository;
 
     @Override
     public void addOrder(OrderDto orderDto) {

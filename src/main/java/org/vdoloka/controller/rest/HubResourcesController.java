@@ -3,14 +3,14 @@ package org.vdoloka.controller.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.vdoloka.dto.HubResourcesDTO;
-import org.vdoloka.repository.impl.HubsRepositoryImpl;
+import org.vdoloka.repository.HubsRepository;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class HubResourcesController {
-    private final HubsRepositoryImpl hubsRepository;
+    private final HubsRepository hubsRepository;
 
     @GetMapping("/hubResources/")
     public List<HubResourcesDTO> getEntries(@RequestParam(name = "page", required = false, defaultValue = "1") int page,

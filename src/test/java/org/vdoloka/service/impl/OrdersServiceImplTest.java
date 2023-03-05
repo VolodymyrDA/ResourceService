@@ -14,6 +14,7 @@ import org.vdoloka.dto.OrderDto;
 import org.vdoloka.exception.OrderNotFoundException;
 import org.vdoloka.repository.impl.HubsRepositoryImpl;
 import org.vdoloka.repository.impl.OrdersRepositoryImpl;
+import org.vdoloka.service.OrdersService;
 
 class OrdersServiceImplTest {
 
@@ -24,7 +25,7 @@ class OrdersServiceImplTest {
     private HubsRepositoryImpl hubsRepository;
 
     @InjectMocks
-    private OrdersServiceImpl ordersServiceImpl;
+    private OrdersService ordersService;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +35,7 @@ class OrdersServiceImplTest {
     @Test
     void addOrder_ShouldInvokeRepositoryAddOrderMethod() {
         OrderDto orderDto = OrderDto.builder().build();
-        ordersServiceImpl.addOrder(orderDto);
+        ordersService.addOrder(orderDto);
         verify(ordersRepository).addOrder(orderDto);
     }
 
@@ -42,7 +43,7 @@ class OrdersServiceImplTest {
     void confirmOrder_ShouldReduceResourceQuantityAndConfirmOrder_WhenOrderExists() {
         int orderId = 1;
         when(ordersRepository.isOrderExist(orderId)).thenReturn(true);
-        ordersServiceImpl.confirmOrder(orderId);
+        ordersService.confirmOrder(orderId);
         verify(hubsRepository).reduceResourceQuantityByOrder(orderId);
         verify(ordersRepository).confirmOrder(orderId);
     }
@@ -51,7 +52,7 @@ class OrdersServiceImplTest {
     void confirmOrder_ShouldThrowOrderNotFoundException_WhenOrderDoesNotExist() {
         int orderId = 1;
         when(ordersRepository.isOrderExist(orderId)).thenReturn(false);
-        Throwable throwable = catchThrowable(() -> ordersServiceImpl.confirmOrder(orderId));
+        Throwable throwable = catchThrowable(() -> ordersService.confirmOrder(orderId));
         assertThat(throwable).isInstanceOf(OrderNotFoundException.class);
     }
 }

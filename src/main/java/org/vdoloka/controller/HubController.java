@@ -3,7 +3,7 @@ package org.vdoloka.controller;
 import lombok.RequiredArgsConstructor;
 import org.vdoloka.entity.Location;
 import org.vdoloka.entity.User;
-import org.vdoloka.repository.LocationsRepository;
+import org.vdoloka.service.NomenclatureService;
 import org.vdoloka.service.UsersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +15,11 @@ import java.util.List;
 @Controller
 public class HubController {
     private final UsersService usersService;
-    private final LocationsRepository locationsRepository;
+    private final NomenclatureService nomenclatureService;
 
     @GetMapping(path = "/hub/{hubId}")
     public String viewProfile(@PathVariable int hubId, Model model) {
-        List<Location> locations = locationsRepository.getLocations();
+        List<Location> locations = nomenclatureService.getLocations();
         model.addAttribute("locations", locations);
         User user = usersService.findByUserID(hubId);
         model.addAttribute("hub", user);

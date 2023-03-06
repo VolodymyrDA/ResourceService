@@ -30,3 +30,6 @@ Hub role:
 Swagger UI:
 /swagger-ui/index.html
 (Only available for registered users).
+
+Deploy:
+https://resourceservice-production.up.railway.app/

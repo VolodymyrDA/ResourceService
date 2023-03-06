@@ -1,20 +1,18 @@
 package org.vdoloka.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Repository;
 import org.vdoloka.config.UserPrincipal;
 import org.vdoloka.dto.HubOrderDTO;
-import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.dto.OrderDto;
 import org.vdoloka.dto.OrderInfoDto;
 import org.vdoloka.model.SortDirection;
 import org.vdoloka.repository.OrdersRepository;
 import org.vdoloka.repository.row_mapper.HubOrderRowMapper;
-import org.vdoloka.repository.row_mapper.HubResourcesDTORowMapper;
 import org.vdoloka.repository.row_mapper.OrderDTORowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -79,35 +77,6 @@ public class OrdersRepositoryImpl implements OrdersRepository {
                 " LIMIT " + itemPerPage +
                 " OFFSET " + (page - 1) * itemPerPage;
         return namedJdbcTemplate.query(sql, new HubOrderRowMapper());
-    }
-
-    @Override
-    public List<HubResourcesDTO> getLackResources(int page, int itemPerPage) {
-        String sql = "SELECT o.resource_id, r.name, (SUM(quantity) - hq.quantity_h) as \"quantity\" " +
-                "FROM orders o " +
-                "         JOIN resources r on r.id = o.resource_id " +
-                "         JOIN (SELECT h.resource_id, SUM(quantity) as \"quantity_h\" " +
-                "               FROM hubs h\n" +
-                "                        JOIN resources rs on rs.id = h.resource_id " +
-                "               GROUP BY resource_id) hq\n" +
-                "              ON hq.resource_id = o.resource_id and hub_id = 0 " +
-                "GROUP BY o.resource_id, hq.quantity_h, r.name, quantity " +
-                "HAVING (SUM(quantity) - hq.quantity_h) > 0 " +
-                "ORDER BY resource_id" +
-                " LIMIT " + itemPerPage +
-                " OFFSET " + (page - 1) * itemPerPage;
-        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
-    }
-
-    @Override
-    public List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage) {
-        String sql = "SELECT resource_id,r.name ,count(resource_id)  as \"quantity\" " +
-                "FROM orders join resources r on orders.resource_id = r.id " +
-                "GROUP BY  resource_id, r.name " +
-                "ORDER BY  resource_id" +
-                " LIMIT " + itemPerPage +
-                " OFFSET " + (page - 1) * itemPerPage;
-        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
 
     @Override

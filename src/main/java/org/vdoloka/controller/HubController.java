@@ -18,7 +18,7 @@ public class HubController {
     private final NomenclatureService nomenclatureService;
 
     @GetMapping(path = "/hub/{hubId}")
-    public String viewProfile(@PathVariable int hubId, Model model) {
+    public String viewHub(@PathVariable int hubId, Model model) {
         List<Location> locations = nomenclatureService.getLocations();
         model.addAttribute("locations", locations);
         User user = usersService.findByUserID(hubId);

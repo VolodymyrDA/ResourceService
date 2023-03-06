@@ -22,11 +22,12 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.vdoloka.controller.GoogleAuthenticationSuccessHandler;
 import org.vdoloka.entity.User;
-import org.vdoloka.repository.impl.UsersRepositoryImpl;
+import org.vdoloka.repository.UsersRepository;
+import org.vdoloka.service.UsersService;
 
 class GoogleAuthenticationSuccessHandlerTest {
     @Mock
-    private UsersRepositoryImpl usersRepository;
+    private UsersService usersService;
 
     @Mock
     private HttpServletRequest request;
@@ -41,7 +42,7 @@ class GoogleAuthenticationSuccessHandlerTest {
     @BeforeEach
     public void setUp() {
         closeable = MockitoAnnotations.openMocks(this);
-        successHandler = new GoogleAuthenticationSuccessHandler(usersRepository);
+        successHandler = new GoogleAuthenticationSuccessHandler(usersService);
         oauth2User = new DefaultOAuth2User(
                 null,
                 Map.of("sub", "test_sub", "given_name", "test_name"),
@@ -57,14 +58,14 @@ class GoogleAuthenticationSuccessHandlerTest {
     @Test
     void shouldAuthenticationSuccessWhenUserExist() throws IOException {
 
-        when(usersRepository.isGoogleUserExist("test_sub")).thenReturn(true);
+        when(usersService.isGoogleUserExist("test_sub")).thenReturn(true);
         User user = User.builder()
                 .id(1L)
                 .role("ROLE_USER")
                 .username("test_name")
                 .password("test_sub")
                 .build();
-        when(usersRepository.findByUserSub("test_sub")).thenReturn(Optional.of(user));
+        when(usersService.("test_sub")).thenReturn(Optional.of(user));
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 oauth2User,
@@ -74,9 +75,8 @@ class GoogleAuthenticationSuccessHandlerTest {
 
         successHandler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(usersRepository).isGoogleUserExist("test_sub");
-        verify(usersRepository).findByUserSub("test_sub");
-
+        verify(usersService.isGoogleUserExist("test_sub");
+        verify(usersService.findByUserSub("test_sub");
         verify(response).sendRedirect((request.getContextPath() + "/orders"));
 
         Authentication resultAuth = SecurityContextHolder.getContext().getAuthentication();
@@ -100,7 +100,7 @@ class GoogleAuthenticationSuccessHandlerTest {
         successHandler.onAuthenticationSuccess(request, response, authentication);
 
         verify(usersRepository).isGoogleUserExist(("test_sub"));
-        verify(usersRepository).addUser(any(User.class));
+        verify(usersRepository).createUser(any(User.class));
 
         verify(response).sendRedirect((request.getContextPath() + "/profile"));
 

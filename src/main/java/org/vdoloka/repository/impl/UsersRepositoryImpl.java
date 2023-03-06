@@ -27,7 +27,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public long addUser(User user) {
+    public long createUser(User user) {
         final int NEW_USER_ROLE_ID = 2;
         String sql = "INSERT INTO users (username, password ,description ,phone,date,location_id,active,role_id,sub)" +
                 " VALUES (:userName,:password,:description,:phone,:date,:location,:active,:roleId,:sub)";

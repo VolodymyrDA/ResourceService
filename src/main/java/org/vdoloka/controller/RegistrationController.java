@@ -28,7 +28,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registerUser(UserDTO userDTO, Model model) {
-        usersService.addUser(UserMapper.INSTANCE.toEntity(userDTO));
+        usersService.createUser(UserMapper.INSTANCE.toEntity(userDTO));
         model.addAttribute("message", "Registration Success");
         return "login";
     }

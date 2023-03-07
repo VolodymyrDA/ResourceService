@@ -23,7 +23,7 @@ class HubOrdersControllerTest {
     private HubOrdersController hubOrdersController;
 
     @Mock
-    private OrdersService ordersServiceImpl;
+    private OrdersService ordersService;
 
     @Test
     void shouldReturnOrdersListWhenGetOrders() {
@@ -32,11 +32,11 @@ class HubOrdersControllerTest {
                 HubOrderDTO.builder().build()
         );
 
-        when(ordersServiceImpl.getHubOrders(1, 10)).thenReturn(expected);
+        when(ordersService.getHubOrders(1, 10)).thenReturn(expected);
 
         List<HubOrderDTO> result = hubOrdersController.getOrdersPageData(1, 10);
 
-        verify(ordersServiceImpl, times(1)).getHubOrders(1, 10);
+        verify(ordersService, times(1)).getHubOrders(1, 10);
         assertEquals(expected, result);
     }
 
@@ -47,11 +47,11 @@ class HubOrdersControllerTest {
                 HubOrderDTO.builder().build()
         );
 
-        when(ordersServiceImpl.getConfirmedOrders(1, 10)).thenReturn(expected);
+        when(ordersService.getConfirmedOrders(1, 10)).thenReturn(expected);
 
         List<HubOrderDTO> result = hubOrdersController.getConfirmedOrdersPageData(1, 10);
 
-        verify(ordersServiceImpl, times(1)).getConfirmedOrders(1, 10);
+        verify(ordersService, times(1)).getConfirmedOrders(1, 10);
         assertEquals(expected, result);
     }
 
@@ -59,6 +59,6 @@ class HubOrdersControllerTest {
     void shouldCallConfirmOrderOnOrdersService() {
         hubOrdersController.confirmOrderById(1);
 
-        verify(ordersServiceImpl, times(1)).confirmOrder(1);
+        verify(ordersService, times(1)).confirmOrder(1);
     }
 }

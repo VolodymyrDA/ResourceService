@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.ResourceDTO;
 import org.vdoloka.entity.Resource;
-import org.vdoloka.repository.ResourcesRepository;
+import org.vdoloka.service.NomenclatureService;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ResourcesControllerTest {
     @Mock
-    private ResourcesRepository resourcesRepository;
+    private NomenclatureService nomenclatureService;
     @InjectMocks
     private ResourcesController resourcesController;
 
@@ -26,7 +26,7 @@ class ResourcesControllerTest {
         int subCategoryId = 1;
         List<Resource> resources = List.of(new Resource(1, "Resource 1", 1),
                 new Resource(2, "Resource 2", 1));
-        when(resourcesRepository.findAllBySubcategoryId(subCategoryId)).thenReturn(resources);
+        when(nomenclatureService.getResources(subCategoryId)).thenReturn(resources);
 
         List<ResourceDTO> result = resourcesController.getResources(subCategoryId);
 

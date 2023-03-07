@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.vdoloka.dto.HubResourcesDTO;
 import org.vdoloka.model.AnalyticsType;
 import org.vdoloka.model.ExportFormat;
-import org.vdoloka.service.AnalyticsService;
+import org.vdoloka.service.ResourcesService;
 import org.vdoloka.service.ExportService;
 import org.vdoloka.service.export.ExcelExporter;
 import org.vdoloka.service.export.PDFExporter;
@@ -24,7 +24,7 @@ public class ExportServiceImpl implements ExportService {
     private final ExcelExporter excelExporter;
     private final WordExporter wordExporter;
     private final PDFExporter pdfExporter;
-    private final AnalyticsService analyticsService;
+    private final ResourcesService resourcesService;
     private final DateFormat dateFormatter;
     private static final int PAGE = 1;
     private static final int ITEMS_PER_PAGE = 1000;
@@ -35,7 +35,7 @@ public class ExportServiceImpl implements ExportService {
         String currentDateTime = dateFormatter.format(new Date());
         String headerValue = String.format("attachment; filename=%s_%s.%s", analyticsType.getFileName(), currentDateTime, format.getFileExtension());
         response.setHeader("Content-Disposition", headerValue);
-        List<HubResourcesDTO> hubResourcesDTOEntities = analyticsService.getData(analyticsType, PAGE, ITEMS_PER_PAGE);
+        List<HubResourcesDTO> hubResourcesDTOEntities = resourcesService.getAnalytics(analyticsType, PAGE, ITEMS_PER_PAGE);
         switch (format) {
             case PDF -> {
                 pdfExporter.getData(hubResourcesDTOEntities, analyticsType.getDescription());

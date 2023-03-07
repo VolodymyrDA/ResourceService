@@ -54,4 +54,33 @@ public class HubsRepositoryImpl implements org.vdoloka.repository.HubsRepository
                 + "WHERE hub_id = " + getCurrentUserId() + " ORDER BY resource_id" + " LIMIT " + itemPerPage + " OFFSET " + (page - 1) * itemPerPage;
         return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
     }
+    @Override
+    public List<HubResourcesDTO> getLackResources(int page, int itemPerPage) {
+        String sql = "SELECT o.resource_id, r.name, (SUM(quantity) - hq.quantity_h) as \"quantity\" " +
+                "FROM orders o " +
+                "         JOIN resources r on r.id = o.resource_id " +
+                "         JOIN (SELECT h.resource_id, SUM(quantity) as \"quantity_h\" " +
+                "               FROM hubs h\n" +
+                "                        JOIN resources rs on rs.id = h.resource_id " +
+                "               GROUP BY resource_id) hq\n" +
+                "              ON hq.resource_id = o.resource_id and hub_id = 0 " +
+                "GROUP BY o.resource_id, hq.quantity_h, r.name, quantity " +
+                "HAVING (SUM(quantity) - hq.quantity_h) > 0 " +
+                "ORDER BY resource_id" +
+                " LIMIT " + itemPerPage +
+                " OFFSET " + (page - 1) * itemPerPage;
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+    }
+
+    @Override
+    public List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage) {
+        String sql = "SELECT resource_id,r.name ,count(resource_id)  as \"quantity\" " +
+                "FROM orders join resources r on orders.resource_id = r.id " +
+                "GROUP BY  resource_id, r.name " +
+                "ORDER BY  resource_id" +
+                " LIMIT " + itemPerPage +
+                " OFFSET " + (page - 1) * itemPerPage;
+        return namedJdbcTemplate.query(sql, new HubResourcesDTORowMapper());
+    }
+
 }

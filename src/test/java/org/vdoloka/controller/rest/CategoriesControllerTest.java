@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.vdoloka.dto.CategoryDTO;
 import org.vdoloka.entity.Category;
-import org.vdoloka.repository.CategoriesRepository;
+import org.vdoloka.service.NomenclatureService;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CategoriesControllerTest {
     @Mock
-    private CategoriesRepository categoriesRepository;
+    private NomenclatureService nomenclatureService;
 
     @InjectMocks
     private CategoriesController categoriesController;
@@ -24,7 +24,7 @@ class CategoriesControllerTest {
         List<Category> categories = List.of(new Category(1, "Category 1"),
                 new Category(2, "Cubcategory 2"));
 
-        when(categoriesRepository.findAll()).thenReturn(categories);
+        when(nomenclatureService.getCategories()).thenReturn(categories);
 
         List<CategoryDTO> result = categoriesController.getCategories();
 

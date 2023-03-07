@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.vdoloka.dto.UserDTO;
 import org.vdoloka.dto.mapper.UserMapper;
 import org.vdoloka.entity.Location;
-import org.vdoloka.repository.LocationsRepository;
+import org.vdoloka.service.NomenclatureService;
 import org.vdoloka.service.UsersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +19,11 @@ import java.util.List;
 @Controller
 public class ProfileController {
     private final UsersService usersService;
-    private final LocationsRepository locationsRepository;
+    private final NomenclatureService nomenclatureService;
 
     @GetMapping("/profile")
     public String viewProfile(Model model) {
-        List<Location> locations = locationsRepository.getLocations();
+        List<Location> locations = nomenclatureService.getLocations();
         model.addAttribute("locations", locations);
         return "profile";
     }
@@ -32,7 +32,7 @@ public class ProfileController {
     public String updateProfile(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
-            List<Location> locations = locationsRepository.getLocations();
+            List<Location> locations = nomenclatureService.getLocations();
             model.addAttribute("locations", locations);
             return "profile";
         }

@@ -13,4 +13,7 @@ public interface HubsRepository {
     List<HubResourcesDTO> getAllResources(int page, int itemPerPage);
 
     List<HubResourcesDTO> getResources(int page, int itemPerPage);
+    List<HubResourcesDTO> getLackResources(int page, int itemPerPage);
+
+    List<HubResourcesDTO> getCountOrderingResources(int page, int itemPerPage);
 }

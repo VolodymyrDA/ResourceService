@@ -20,7 +20,6 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     private final ResourcesRepository resourcesRepository;
     private final CategoriesRepository categoriesRepository;
     private final SubCategoriesRepository subCategoriesRepository;
-
     private final LocationsRepository locationsRepository;
 
     @Override

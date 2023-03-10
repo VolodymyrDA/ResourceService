@@ -12,7 +12,6 @@ class CategoryMapperTest {
 
     @Test
     void testToDtoList() {
-        // Given
         Category category1 = new Category();
         category1.setId(1);
         category1.setName("Category 1");

@@ -97,6 +97,11 @@ Java 18 , Spring: Boot MVC Security Data, Freemarker, Flyway,
 Lombok, PostgresSQL ,Mapstruct ,Gradle, HTML, CSS, JavaScript, Bootstrap, Jquery
 Swagger
 </b>
+<br>
+Database diagram:    
+<img src="images/dbdiagram.png" alt="DB diagtam" align="center">
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -140,24 +145,16 @@ To get a local copy up and running follow these simplesteps.
 
 ## Usage
 
-Let's say that a group of volunteers has come together to create a website that connects refugees and other volunteers with local organizations that can provide them with resources like food, shelter, education, and healthcare. They decide to use the website to create a database of regional resource hubs that can help refugees in different areas.
+Let's say that a group of volunteers has come together to create a website that connects refugees and other volunteers with local organizations that can provide them with resources like food, shelter, equipment, and healthcare. They decide to use the website to create a database of regional resource hubs that can help refugees in different areas.
 
 To get started, they create a homepage for the website that explains the mission of the project and provides
 instructions for how to use it. They also create a registration form that allows organizations and volunteers to sign up
 and provide information about their resources and services.
 
 Once organizations and volunteers have registered, they can add their own resource hubs to the database by filling out a
-form with details like the name of the organization, the location of the resource hub, and the types of resources
-available. They can also include photos, videos, and other multimedia to help users get a better understanding of what
-the resource hub offers.
+form with details like the name of the organization, the location of the resource hub, and the types of resources, contacts
+available.
 
-As the database grows, the volunteers behind the website work to organize the information and make it easier for users
-to find the resources they need. They create search functions that allow users to filter by location, type of resource,
-and other criteria, and they create a map that displays all of the resource hubs in a given area.
-
-Over time, the website becomes a valuable resource for refugees and volunteers alike, helping them to connect with local
-organizations and find the resources they need to rebuild their lives in a new country. The volunteers continue to
-update and improve the database, adding new features and making it even easier to use.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

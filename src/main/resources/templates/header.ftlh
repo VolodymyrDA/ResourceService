@@ -41,7 +41,7 @@
 
 <header>
 <span class="align-baseline">
-<img src="/images/topimage.jpg" class="float-left">
+<img src="/images/topimage.jpg" width="100%">
 </span>
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">

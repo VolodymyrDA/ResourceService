@@ -1,36 +1,28 @@
 package org.vdoloka.service.impl;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.vdoloka.dto.OrderDto;
+import org.vdoloka.exception.OrderNotFoundException;
+import org.vdoloka.repository.impl.HubsRepositoryImpl;
+import org.vdoloka.repository.impl.OrdersRepositoryImpl;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.vdoloka.dto.OrderDto;
-import org.vdoloka.exception.OrderNotFoundException;
-import org.vdoloka.repository.impl.HubsRepositoryImpl;
-import org.vdoloka.repository.impl.OrdersRepositoryImpl;
-import org.vdoloka.service.OrdersService;
-
+@ExtendWith(MockitoExtension.class)
 class OrdersServiceImplTest {
-
     @Mock
     private OrdersRepositoryImpl ordersRepository;
-
     @Mock
     private HubsRepositoryImpl hubsRepository;
-
     @InjectMocks
-    private OrdersService ordersService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    private OrdersServiceImpl ordersService;
 
     @Test
     void addOrder_ShouldInvokeRepositoryAddOrderMethod() {

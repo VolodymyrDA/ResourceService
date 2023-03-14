@@ -69,13 +69,14 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://resourceservice-production.up.railway.app/)
 <p style="font-size: 1.3em;">
-Create a database of regional resource hubs by volunteers and organizations to provide refugees and volunteers with the necessary resources.
+The service assignment is to create a database of regional resource hubs managed by volunteers and organizations that provide
+refugees, soldiers or other volunteers with the necessary resources.
 </p>
 User role:
 
     User registration
     Creating specific resource requests
-    Viewing confirmed requests and hub resources information
+    Viewing confirmed requests and resources hub information
     Changing profile information
 
 Hub role:
@@ -86,7 +87,8 @@ Hub role:
     Changing profile information
     Generating statistical reports:
         Summary information on the entire database for each resource, including total amount of residues
-        Summary information on the entire database on the number of each resource, which is insufficient to fulfill unfinished queries
+        Summary information on the entire database on the number of each resource, 
+        which is insufficient to fulfill unfinished queries
         Output of 10 popular resources (by number of orders)
         and export them to PDF, Word & Excel.
 
@@ -145,7 +147,8 @@ To get a local copy up and running follow these simplesteps.
 
 ## Usage
 
-Let's say that a group of volunteers has come together to create a website that connects refugees and other volunteers with local organizations that can provide them with resources like food, shelter, equipment, and healthcare. They decide to use the website to create a database of regional resource hubs that can help refugees in different areas.
+Let's say that a group of volunteers has come together to create a website that connects refugees and other volunteers with local organizations that can provide them with resources like food, shelter, equipment, and healthcare. 
+They decide to use the website to create a database of regional resource hubs that can help refugees in different areas.
 
 To get started, they create a homepage for the website that explains the mission of the project and provides
 instructions for how to use it. They also create a registration form that allows organizations and volunteers to sign up

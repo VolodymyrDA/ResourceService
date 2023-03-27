@@ -4,7 +4,15 @@ let pageSize = 10;
 let SelectedResourceId = 0;
 let currentSortColumn = "id";
 let currentSortOrder = "ASC";
-
+$(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        if (options.type === "POST") {
+            xhr.setRequestHeader(header, token);
+        }
+    });
+});
 function sortOrders(column) {
     if (currentSortColumn === column) {
         currentSortOrder = currentSortOrder === "ASC" ? "DESC" : "ASC";

@@ -24,8 +24,9 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(true);
+        user.setActive(Boolean.TRUE);
         user.setDate(LocalDateTime.now());
+        user.setSub("0");
         usersRepository.createUser(user);
     }
 
